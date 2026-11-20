@@ -18,6 +18,7 @@
     "check:worker": "scripts/check-worker.sh"
   },
   "dependencies": {
+    "cmdk": "^1.1.1",
     "cn": "^0.5.0",
     "fumadocs-core": "16.17.9",
     "fumadocs-mdx": "15.4.10",

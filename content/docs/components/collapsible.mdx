@@ -1,0 +1,37 @@
+---
+title: Collapsible
+description: "A Radix collapsible whose content hangs off a dithered rail."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="collapsible" />
+
+<Playground name="collapsible" />
+
+## Installation
+
+<Install name="collapsible" />
+
+## Usage
+
+```tsx
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+
+<Collapsible>
+  <CollapsibleTrigger>Show more</CollapsibleTrigger>
+  <CollapsibleContent>Hidden content.</CollapsibleContent>
+</Collapsible>
+```
+
+Wraps [Radix Collapsible](https://www.radix-ui.com/primitives/docs/components/collapsible). Open content hangs off a 4px dithered rail.
+
+## Accessibility
+
+- The trigger gets `aria-expanded` and `aria-controls`.
+- Closed content is removed from the accessibility tree.
+
+## Props
+
+<PropsTable name="collapsible" />

@@ -1,0 +1,42 @@
+---
+title: Command
+description: "A cmdk command palette in a dithered frame; the selected item gets a dithered wash."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="command" />
+
+<Playground name="command" />
+
+## Installation
+
+<Install name="command" />
+
+## Usage
+
+```tsx
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+
+<Command>
+  <CommandInput placeholder="Search…" />
+  <CommandList>
+    <CommandEmpty>No results.</CommandEmpty>
+    <CommandGroup heading="Suggestions">
+      <CommandItem>Calendar</CommandItem>
+    </CommandGroup>
+  </CommandList>
+</Command>
+```
+
+Wraps [cmdk](https://cmdk.paco.me). `CommandDialog` puts it in a dotgrain Dialog for a ⌘K palette; it installs `dialog` alongside.
+
+## Accessibility
+
+- The input is a combobox controlling a listbox; arrow keys move the selection.
+- Items get `aria-selected`; empty results are announced from `CommandEmpty`.
+
+## Props
+
+<PropsTable name="command" />

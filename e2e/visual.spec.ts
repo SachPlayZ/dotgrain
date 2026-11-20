@@ -56,6 +56,9 @@ const OPEN: Record<string, { open: (page: Page) => Promise<unknown>; shown: stri
   "hover-card-demo": { open: (p) => p.hover("#visual a"), shown: "[data-radix-popper-content-wrapper]" },
   "dropdown-menu-demo": { open: (p) => p.click(trigger).then(() => p.keyboard.press("ArrowDown")), shown: "[role=menu]" },
   "context-menu-demo": { open: (p) => p.click("#visual [data-state]", { button: "right", position: { x: 4, y: 4 } }).then(() => p.keyboard.press("ArrowDown")), shown: "[role=menu]" },
+  "navigation-menu-demo": { open: (p) => p.click("#visual button"), shown: "#visual a" },
+  "menubar-demo": { open: (p) => p.click("#visual [role=menuitem]").then(() => p.keyboard.press("ArrowDown")), shown: "[role=menu]" },
+  "combobox-demo": { open: (p) => p.click("#visual [role=combobox]"), shown: "[role=listbox]" },
   // Hovering the toast pauses its timer, so it stays for the screenshot.
   "sonner-demo": { open: (p) => p.click(trigger).then(() => p.hover("[data-sonner-toast]")), shown: "[data-sonner-toast]" },
 };
