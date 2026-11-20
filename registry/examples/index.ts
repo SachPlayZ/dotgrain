@@ -38,6 +38,12 @@ import AspectRatioDemo from "./aspect-ratio-demo";
 import ProgressDemo from "./progress-demo";
 import TableDemo from "./table-demo";
 import ScrollAreaDemo from "./scroll-area-demo";
+import CalendarDemo from "./calendar-demo";
+import DatePickerDemo from "./date-picker-demo";
+import CarouselDemo from "./carousel-demo";
+import ResizableDemo from "./resizable-demo";
+import ChartDemo from "./chart-demo";
+import DataTableDemo from "./data-table-demo";
 import DialogDemo from "./dialog-demo";
 import SonnerDemo from "./sonner-demo";
 import ContextMenuDemo from "./context-menu-demo";
@@ -131,6 +137,12 @@ export const examples: Record<string, ComponentType> = {
   "progress-demo": ProgressDemo,
   "table-demo": TableDemo,
   "scroll-area-demo": ScrollAreaDemo,
+  "calendar-demo": CalendarDemo,
+  "date-picker-demo": DatePickerDemo,
+  "carousel-demo": CarouselDemo,
+  "resizable-demo": ResizableDemo,
+  "chart-demo": ChartDemo,
+  "data-table-demo": DataTableDemo,
   "loader-demo": LoaderDemo,
   "skeleton-demo": SkeletonDemo,
   "card-demo": CardDemo,

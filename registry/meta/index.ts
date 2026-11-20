@@ -60,6 +60,12 @@ import aspectRatioMeta from "./aspect-ratio.ts";
 import progressMeta from "./progress.ts";
 import tableMeta from "./table.ts";
 import scrollAreaMeta from "./scroll-area.ts";
+import calendarMeta from "./calendar.ts";
+import datePickerMeta from "./date-picker.ts";
+import carouselMeta from "./carousel.ts";
+import resizableMeta from "./resizable.ts";
+import chartMeta from "./chart.ts";
+import dataTableMeta from "./data-table.ts";
 import type { ComponentMeta } from "./types.ts";
 
-export const components: ComponentMeta[] = [ditherField, ditherImage, ditherProgress, asciiVideo, scrambleText, ditherReveal, asciiRain, button, switchMeta, toggle, inputMeta, textareaMeta, labelMeta, nativeSelectMeta, checkboxMeta, radioGroupMeta, sliderMeta, toggleGroupMeta, selectMeta, inputOtpMeta, inputGroupMeta, buttonGroupMeta, fieldMeta, dialogMeta, alertDialogMeta, sheetMeta, drawerMeta, popoverMeta, tooltipMeta, hoverCardMeta, dropdownMenuMeta, contextMenuMeta, sonnerMeta, tabsMeta, accordionMeta, collapsibleMeta, breadcrumbMeta, paginationMeta, navigationMenuMeta, menubarMeta, commandMeta, comboboxMeta, sidebarMeta, badgeMeta, alertMeta, avatarMeta, separatorMeta, kbdMeta, itemMeta, emptyMeta, spinnerMeta, aspectRatioMeta, progressMeta, tableMeta, scrollAreaMeta, loader, skeleton, card, backdrop, terminal, asciiChart, heroTerminal];
+export const components: ComponentMeta[] = [ditherField, ditherImage, ditherProgress, asciiVideo, scrambleText, ditherReveal, asciiRain, button, switchMeta, toggle, inputMeta, textareaMeta, labelMeta, nativeSelectMeta, checkboxMeta, radioGroupMeta, sliderMeta, toggleGroupMeta, selectMeta, inputOtpMeta, inputGroupMeta, buttonGroupMeta, fieldMeta, dialogMeta, alertDialogMeta, sheetMeta, drawerMeta, popoverMeta, tooltipMeta, hoverCardMeta, dropdownMenuMeta, contextMenuMeta, sonnerMeta, tabsMeta, accordionMeta, collapsibleMeta, breadcrumbMeta, paginationMeta, navigationMenuMeta, menubarMeta, commandMeta, comboboxMeta, sidebarMeta, badgeMeta, alertMeta, avatarMeta, separatorMeta, kbdMeta, itemMeta, emptyMeta, spinnerMeta, aspectRatioMeta, progressMeta, tableMeta, scrollAreaMeta, calendarMeta, datePickerMeta, carouselMeta, resizableMeta, chartMeta, dataTableMeta, loader, skeleton, card, backdrop, terminal, asciiChart, heroTerminal];

@@ -1,0 +1,41 @@
+---
+title: Carousel
+description: "An Embla carousel whose dithered rule fills as you scroll, with dithered previous and next buttons."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="carousel" />
+
+<Playground name="carousel" />
+
+## Installation
+
+<Install name="carousel" />
+
+## Usage
+
+```tsx
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+
+<Carousel>
+  <CarouselContent>
+    <CarouselItem>…</CarouselItem>
+    <CarouselItem>…</CarouselItem>
+  </CarouselContent>
+  <CarouselPrevious />
+  <CarouselNext />
+</Carousel>
+```
+
+Same parts as shadcn's. Set `flexBasis` on `CarouselItem` (e.g. `"50%"`) to show several slides. The arrows sit outside the slides, so leave room around the carousel. Plugins such as `embla-carousel-autoplay` are yours to install.
+
+## Accessibility
+
+- A `region` with `aria-roledescription="carousel"`; slides are `group`s described as "slide". Name it with `aria-label`.
+- Left and right arrows (up and down when vertical) move between slides; the buttons disable at the ends.
+
+## Props
+
+<PropsTable name="carousel" />

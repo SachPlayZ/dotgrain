@@ -20,6 +20,7 @@
   "dependencies": {
     "cmdk": "^1.1.1",
     "cn": "^0.5.0",
+    "embla-carousel-react": "^8.6.0",
     "fumadocs-core": "16.17.9",
     "fumadocs-mdx": "15.4.10",
     "fumadocs-ui": "npm:@fumadocs/base-ui@16.17.9",
@@ -28,7 +29,9 @@
     "next": "16.4.6",
     "radix-ui": "^1.8.1",
     "react": "^19.3.1",
+    "react-day-picker": "^10.0.2",
     "react-dom": "^19.3.1",
+    "react-resizable-panels": "^4.24.1",
     "sonner": "^2.0.8",
     "vaul": "^1.1.2"
   },

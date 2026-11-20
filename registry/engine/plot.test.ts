@@ -32,3 +32,17 @@ describe("plotValues", () => {
     expect(plotValues([], "bar", 3, 3).every((v) => v === 0)).toBe(true);
   });
 });
+
+describe("plotValues with several series", () => {
+  it("splits bar slots into lanes, one level per series", () => {
+    // 1 slot, 2 series, 4 columns: lanes 0–1 belong to the first series (level 1), 2–3 to the second (0.5).
+    const rows = grid(plotValues([[1], [1]], "bar", 4, 1), 4);
+    expect(rows[0]).toEqual([1, 1, 0.5, 0.5]);
+  });
+
+  it("overlays lines on a shared scale, first series on top", () => {
+    const rows = grid(plotValues([[0, 0], [1, 1]], "line", 2, 2), 2);
+    expect(rows[0]).toEqual([0.5, 0.5]);
+    expect(rows[1]).toEqual([1, 1]);
+  });
+});

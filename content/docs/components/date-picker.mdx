@@ -1,0 +1,34 @@
+---
+title: Date Picker
+description: "shadcn's date-picker recipe as one component: a button that opens a dithered Calendar in a Popover."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="date-picker" />
+
+<Playground name="date-picker" />
+
+## Installation
+
+<Install name="date-picker" />
+
+## Usage
+
+```tsx
+import { DatePicker } from "@/components/ui/date-picker";
+
+<DatePicker aria-label="Due date" onValueChange={setDate} />
+```
+
+It closes on pick. For ranges or other layouts, compose [Popover](/docs/components/popover) and [Calendar](/docs/components/calendar) yourself, as shadcn's recipe does.
+
+## Accessibility
+
+- The trigger is a button that announces the popover; give it `aria-label` when no visible label points at it.
+- Focus moves into the calendar and returns to the trigger on close.
+
+## Props
+
+<PropsTable name="date-picker" />
