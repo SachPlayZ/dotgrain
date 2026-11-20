@@ -16,6 +16,16 @@ import InputOTPDemo from "./input-otp-demo";
 import InputGroupDemo from "./input-group-demo";
 import ButtonGroupDemo from "./button-group-demo";
 import FieldDemo from "./field-demo";
+import DialogDemo from "./dialog-demo";
+import SonnerDemo from "./sonner-demo";
+import ContextMenuDemo from "./context-menu-demo";
+import DropdownMenuDemo from "./dropdown-menu-demo";
+import HoverCardDemo from "./hover-card-demo";
+import TooltipDemo from "./tooltip-demo";
+import PopoverDemo from "./popover-demo";
+import DrawerDemo from "./drawer-demo";
+import SheetDemo from "./sheet-demo";
+import AlertDialogDemo from "./alert-dialog-demo";
 import LoaderDemo from "./loader-demo";
 import SkeletonDemo from "./skeleton-demo";
 import BackdropDemo from "./backdrop-demo";
@@ -67,6 +77,16 @@ export const examples: Record<string, ComponentType> = {
   "input-group-demo": InputGroupDemo,
   "button-group-demo": ButtonGroupDemo,
   "field-demo": FieldDemo,
+  "dialog-demo": DialogDemo,
+  "sonner-demo": SonnerDemo,
+  "context-menu-demo": ContextMenuDemo,
+  "dropdown-menu-demo": DropdownMenuDemo,
+  "hover-card-demo": HoverCardDemo,
+  "tooltip-demo": TooltipDemo,
+  "popover-demo": PopoverDemo,
+  "drawer-demo": DrawerDemo,
+  "sheet-demo": SheetDemo,
+  "alert-dialog-demo": AlertDialogDemo,
   "loader-demo": LoaderDemo,
   "skeleton-demo": SkeletonDemo,
   "card-demo": CardDemo,

@@ -1,0 +1,36 @@
+---
+title: Hover Card
+description: "A Radix hover card that previews a link inside a dithered frame."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="hover-card" />
+
+<Playground name="hover-card" />
+
+## Installation
+
+<Install name="hover-card" />
+
+## Usage
+
+```tsx
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+
+<HoverCard>
+  <HoverCardTrigger href="https://dotgrain.space">@dotgrain</HoverCardTrigger>
+  <HoverCardContent>Dither and ASCII components.</HoverCardContent>
+</HoverCard>
+```
+
+Wraps [Radix Hover Card](https://www.radix-ui.com/primitives/docs/components/hover-card). The trigger is a link, so it works without the card.
+
+## Accessibility
+
+- Opens on hover and focus. It is for sighted mouse users: screen readers skip the card, so keep its content optional.
+
+## Props
+
+<PropsTable name="hover-card" />

@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { paletteColors } from "./palettes";
 import { useColorScheme, useDitherTokens } from "./provider";
 import { Quantize } from "./quantize";
@@ -37,4 +37,14 @@ export type GrainProps = Partial<DitherTokens> & {
 /** A decorative field layer filling its positioned parent; params ease, so it animates between states. */
 export function Grain({ field = "progress", params, style, ...tokens }: GrainProps) {
   return <Quantize source={{ kind: "field", field, params }} ease {...tokens} style={{ position: "absolute", inset: 0, pointerEvents: "none", ...style }} />;
+}
+
+/** False on the first paint, true from the next frame: lets an eased Grain animate in on mount. */
+export function useEntered(): boolean {
+  const [entered, setEntered] = useState(false);
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setEntered(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+  return entered;
 }

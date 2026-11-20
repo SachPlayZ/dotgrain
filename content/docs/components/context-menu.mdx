@@ -1,0 +1,40 @@
+---
+title: Context Menu
+description: "A Radix right-click menu in a dithered frame, with dithered item highlights."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="context-menu" />
+
+<Playground name="context-menu" />
+
+## Installation
+
+<Install name="context-menu" />
+
+## Usage
+
+```tsx
+import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu";
+
+<ContextMenu>
+  <ContextMenuTrigger>Right-click here</ContextMenuTrigger>
+  <ContextMenuContent>
+    <ContextMenuItem>Copy</ContextMenuItem>
+    <ContextMenuItem>Paste</ContextMenuItem>
+  </ContextMenuContent>
+</ContextMenu>
+```
+
+Wraps [Radix Context Menu](https://www.radix-ui.com/primitives/docs/components/context-menu) with the same parts as [Dropdown Menu](/docs/components/dropdown-menu).
+
+## Accessibility
+
+- Opens on right-click, long-press, or Shift+F10 / the Menu key on a focused trigger.
+- Make every action also reachable another way: many users never right-click.
+
+## Props
+
+<PropsTable name="context-menu" />

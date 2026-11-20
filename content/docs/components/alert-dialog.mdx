@@ -1,0 +1,45 @@
+---
+title: Alert Dialog
+description: "A Radix confirmation dialog with a heavy dithered frame and dithered buttons."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="alert-dialog" />
+
+<Playground name="alert-dialog" />
+
+## Installation
+
+<Install name="alert-dialog" />
+
+## Usage
+
+```tsx
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+
+<AlertDialog>
+  <AlertDialogTrigger>Delete</AlertDialogTrigger>
+  <AlertDialogContent>
+    <AlertDialogHeader>
+      <AlertDialogTitle>Delete this palette?</AlertDialogTitle>
+    </AlertDialogHeader>
+    <AlertDialogFooter>
+      <AlertDialogCancel>Cancel</AlertDialogCancel>
+      <AlertDialogAction>Delete</AlertDialogAction>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>
+```
+
+Wraps [Radix Alert Dialog](https://www.radix-ui.com/primitives/docs/components/alert-dialog). `AlertDialogAction` and `AlertDialogCancel` are drawn like dotgrain's [Button](/docs/components/button), solid and outline.
+
+## Accessibility
+
+- Uses the `alertdialog` role; clicking the scrim does not dismiss it, so the user must choose.
+- Focus moves to Cancel on open and returns to the trigger on close; Esc cancels.
+
+## Props
+
+<PropsTable name="alert-dialog" />
