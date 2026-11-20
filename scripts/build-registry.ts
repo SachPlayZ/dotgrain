@@ -4,8 +4,7 @@ import { readdirSync, writeFileSync } from "node:fs";
 import { components } from "../registry/meta/index.ts";
 
 const out = process.argv[2] ?? "registry.json";
-// shortcut: engine is referenced by URL because `@dotgrain/engine` only resolves once the namespace
-// is configured by the user or listed in the shadcn index; switch after the index listing (phase 2).
+// The engine is referenced by URL, not `@dotgrain/engine`, so local installs (REGISTRY_URL) pull the local engine.
 const base = process.env.REGISTRY_URL ?? "https://dotgrain.space/r";
 const engineFiles = readdirSync("registry/engine")
   .filter((f) => /\.tsx?$/.test(f) && !f.includes(".test."))

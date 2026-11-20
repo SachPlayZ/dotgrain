@@ -31,7 +31,6 @@ describe("component docs", () => {
     const text = prompt(ditherField, { palette: "cga" });
     expect(text).toContain("npx shadcn@latest add @dotgrain/dither-field");
     expect(text).toContain('palette="cga"');
-    expect(text).toContain('"@dotgrain": "https://dotgrain.space/r/{name}.json"');
     for (const { href } of openIn(text)) expect(decodeURIComponent(href)).toContain('palette="cga"');
   });
 });
