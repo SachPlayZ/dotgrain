@@ -27,6 +27,8 @@ export interface ComponentMeta {
   files: string[];
   /** Other dotgrain items this one imports, by name; installed alongside it. */
   registryDependencies?: string[];
+  /** npm packages it imports; only shadcn's own primitives (radix-ui, cmdk, vaul, sonner…). */
+  dependencies?: string[];
   props: PropMeta[];
   /** Props the docs preview starts from; the code tab and copy prompt print them. */
   example: { props: Record<string, ExampleValue>; children?: string };

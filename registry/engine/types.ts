@@ -3,7 +3,7 @@ import type { Reveal } from "./text";
 
 export type Mode = "dither" | "ascii";
 export type Pattern = "bayer2" | "bayer4" | "bayer8" | "blueNoise" | "atkinson" | "floyd";
-export type PaletteName = "ink" | "gameboy" | "amber" | "phosphor" | "cga" | "riso";
+export type PaletteName = "ink" | "gameboy" | "amber" | "phosphor" | "cga" | "riso" | "synthwave" | "sunset" | "ocean";
 export type GlyphRampName = "standard" | "blocks" | "binary" | "katakana";
 export type FieldName = "noise" | "radial" | "linear" | "progress" | "rain" | "spin" | "shimmer" | "frame";
 

@@ -303,17 +303,45 @@
       }
     },
     {
-      "name": "toggle",
+      "name": "switch",
       "type": "registry:ui",
-      "title": "Toggle",
-      "description": "A native checkbox switch with a dithered track that eases between off and on.",
+      "title": "Switch",
+      "description": "An on/off switch on Radix with a dithered track that eases between off and on.",
       "categories": [
         "control"
       ],
       "registryDependencies": [
         "https://dotgrain.space/r/engine.json"
       ],
-      "dependencies": [],
+      "dependencies": [
+        "radix-ui"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/switch.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "modes": [
+          "dither"
+        ]
+      }
+    },
+    {
+      "name": "toggle",
+      "type": "registry:ui",
+      "title": "Toggle",
+      "description": "A two-state press button on Radix whose face dithers full when pressed.",
+      "categories": [
+        "control"
+      ],
+      "registryDependencies": [
+        "https://dotgrain.space/r/engine.json"
+      ],
+      "dependencies": [
+        "radix-ui"
+      ],
       "files": [
         {
           "path": "registry/ui/toggle.tsx",
@@ -322,7 +350,8 @@
       ],
       "meta": {
         "modes": [
-          "dither"
+          "dither",
+          "ascii"
         ]
       }
     },

@@ -4,16 +4,11 @@ import { Toggle } from "@/registry/ui/toggle";
 
 export default function ToggleDemo() {
   return (
-    <div style={{ display: "flex", gap: 24, alignItems: "center", flexWrap: "wrap" }}>
-      <label style={{ display: "flex", gap: 8, alignItems: "center" }}>
-        <Toggle defaultChecked /> Notifications
-      </label>
-      <label style={{ display: "flex", gap: 8, alignItems: "center" }}>
-        <Toggle /> Sound
-      </label>
-      <label style={{ display: "flex", gap: 8, alignItems: "center" }}>
-        <Toggle size={32} disabled /> Disabled
-      </label>
+    <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
+      <Toggle defaultPressed aria-label="Toggle bold">Bold</Toggle>
+      <Toggle aria-label="Toggle italic">Italic</Toggle>
+      <Toggle variant="outline" aria-label="Toggle underline">Underline</Toggle>
+      <Toggle disabled aria-label="Toggle strike">Strike</Toggle>
     </div>
   );
 }

@@ -16,6 +16,9 @@ export const PALETTES: Record<PaletteName, string[]> = {
   phosphor: ["#001408", "#33ff66"],
   cga: ["#000000", "#55ffff", "#ff55ff", "#ffffff"],
   riso: ["#f2efe6", "#ff48b0", "#0078bf", "#1a1a1a"],
+  synthwave: ["#140a26", "#6a1fb0", "#ff3ea5", "#3ff4ff"],
+  sunset: ["#2b0f2e", "#c2245c", "#ff7a3d", "#ffd56b"],
+  ocean: ["#041c2c", "#0b5d8a", "#1fb5c9", "#b8fff4"],
 };
 
 let probe: CanvasRenderingContext2D | null | undefined;

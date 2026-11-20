@@ -19,6 +19,7 @@ import { DitherReveal } from "@/registry/ui/dither-reveal";
 import { AsciiRain } from "@/registry/ui/ascii-rain";
 import { Button } from "@/registry/ui/button";
 import { Toggle } from "@/registry/ui/toggle";
+import { Switch } from "@/registry/ui/switch";
 import { Loader } from "@/registry/ui/loader";
 import { Skeleton } from "@/registry/ui/skeleton";
 import { Card } from "@/registry/ui/card";
@@ -29,7 +30,7 @@ import { HeroTerminal } from "@/registry/ui/hero-terminal";
 import { ScrambleText } from "@/registry/ui/scramble-text";
 
 // Each preview gets its meta example props plus knob values, so props are only known at runtime.
-const COMPONENTS = { "dither-field": DitherField, "dither-image": DitherImage, "dither-progress": DitherProgress, "ascii-video": AsciiVideo, "scramble-text": ScrambleText, "dither-reveal": DitherReveal, "ascii-rain": AsciiRain, button: Button, toggle: Toggle, loader: Loader, skeleton: Skeleton, card: Card, backdrop: Backdrop, terminal: Terminal, "ascii-chart": AsciiChart, "hero-terminal": HeroTerminal } as unknown as Record<
+const COMPONENTS = { "dither-field": DitherField, "dither-image": DitherImage, "dither-progress": DitherProgress, "ascii-video": AsciiVideo, "scramble-text": ScrambleText, "dither-reveal": DitherReveal, "ascii-rain": AsciiRain, button: Button, switch: Switch, toggle: Toggle, loader: Loader, skeleton: Skeleton, card: Card, backdrop: Backdrop, terminal: Terminal, "ascii-chart": AsciiChart, "hero-terminal": HeroTerminal } as unknown as Record<
   string,
   ComponentType<Record<string, unknown> & { children?: ReactNode }>
 >;
