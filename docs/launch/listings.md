@@ -18,13 +18,7 @@ Copy and metadata for the maintainer to submit. Nothing here is submitted automa
 
 ## shadcn registry index
 
-Submit a PR to `shadcn-ui/ui` adding to `apps/v4/public/r/registries.json` (follow the repo's current contributing guide):
-
-```json
-{ "@dotgrain": "https://dotgrain.space/r/{name}.json" }
-```
-
-After it merges, `npx shadcn@latest add @dotgrain/<name>` works without a `components.json` entry. Then switch `scripts/build-registry.ts` to reference the engine as `@dotgrain/engine` (see the shortcut comment there) and remove the warning on `/docs/mcp`.
+Done: listed via `apps/v4/registry/directory.json` (shadcn-ui/ui PR 12547). `npx shadcn@latest add @dotgrain/<name>` works without a `components.json` entry.
 
 ## registry.directory
 

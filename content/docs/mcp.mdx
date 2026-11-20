@@ -5,23 +5,9 @@ description: Let your AI coding agent browse, search and install dotgrain compon
 
 The [shadcn MCP server](https://ui.shadcn.com/docs/mcp) lets agents such as Claude Code, Cursor and VS Code Copilot list, search, view and install items from any shadcn registry, including dotgrain.
 
-## 1. Add the registry
+dotgrain is listed in the shadcn registry index, so the `@dotgrain` namespace needs no `components.json` entry.
 
-Add the `@dotgrain` namespace to `components.json`:
-
-```json title="components.json"
-{
-  "registries": {
-    "@dotgrain": "https://dotgrain.space/r/{name}.json"
-  }
-}
-```
-
-<Callout type="warn" title="The @dotgrain/ prefix needs this entry">
-  Until dotgrain is listed in the shadcn registry index, names like `@dotgrain/dither-field` only resolve in projects whose `components.json` has the entry above. Without it, the CLI and MCP server report an unknown registry. Full URLs (`https://dotgrain.space/r/dither-field.json`) always work.
-</Callout>
-
-## 2. Set up the MCP server
+## Set up the MCP server
 
 ```bash
 npx shadcn@latest mcp init --client claude
@@ -29,7 +15,7 @@ npx shadcn@latest mcp init --client claude
 
 Use `--client cursor`, `--client vscode` or `--client codex` for other agents, then restart the agent so it picks up the server.
 
-## 3. Ask for components
+## Ask for components
 
 - “Show me the components in the dotgrain registry.”
 - “Find a dotgrain loader that works in ASCII mode.”

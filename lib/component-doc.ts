@@ -1,7 +1,7 @@
 import { RAMPS } from "@/registry/engine/glyphs";
 import { PALETTES } from "@/registry/engine/palettes";
 import type { ComponentMeta, ExampleValue, KnobMeta } from "@/registry/meta/types";
-import { addCommand, REGISTRY_URL } from "./install";
+import { addCommand } from "./install";
 
 export type KnobValues = Record<string, string | number | boolean>;
 
@@ -70,10 +70,8 @@ export function snippet(meta: ComponentMeta, values: KnobValues): string {
 export function prompt(meta: ComponentMeta, values: KnobValues): string {
   return `Add the dotgrain ${meta.title} component to this project. ${meta.description}
 
-1. If components.json has no "@dotgrain" entry under "registries", add it:
-   "registries": { "@dotgrain": "${REGISTRY_URL}/{name}.json" }
-2. Install it: ${addCommand(`@dotgrain/${meta.name}`)}
-3. Use it:
+1. Install it: ${addCommand(`@dotgrain/${meta.name}`)}
+2. Use it:
 
 \`\`\`tsx
 ${snippet(meta, values)}

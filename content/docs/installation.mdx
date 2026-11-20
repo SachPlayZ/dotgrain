@@ -7,17 +7,7 @@ dotgrain is a shadcn registry, not an npm package. You need a project set up for
 
 ## Namespaced (recommended)
 
-Add the registry to `components.json` once:
-
-```json title="components.json"
-{
-  "registries": {
-    "@dotgrain": "https://dotgrain.space/r/{name}.json"
-  }
-}
-```
-
-Then add components by name:
+dotgrain is listed in the shadcn registry index, so `@dotgrain/` names work with no configuration:
 
 ```bash
 npx shadcn@latest add @dotgrain/dither-field
