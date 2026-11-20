@@ -44,6 +44,12 @@ import CarouselDemo from "./carousel-demo";
 import ResizableDemo from "./resizable-demo";
 import ChartDemo from "./chart-demo";
 import DataTableDemo from "./data-table-demo";
+import AttachmentDemo from "./attachment-demo";
+import BubbleDemo from "./bubble-demo";
+import MarkerDemo from "./marker-demo";
+import MessageDemo from "./message-demo";
+import MessageScrollerDemo from "./message-scroller-demo";
+import DirectionDemo from "./direction-demo";
 import DialogDemo from "./dialog-demo";
 import SonnerDemo from "./sonner-demo";
 import ContextMenuDemo from "./context-menu-demo";
@@ -143,6 +149,12 @@ export const examples: Record<string, ComponentType> = {
   "resizable-demo": ResizableDemo,
   "chart-demo": ChartDemo,
   "data-table-demo": DataTableDemo,
+  "attachment-demo": AttachmentDemo,
+  "bubble-demo": BubbleDemo,
+  "marker-demo": MarkerDemo,
+  "message-demo": MessageDemo,
+  "message-scroller-demo": MessageScrollerDemo,
+  "direction-demo": DirectionDemo,
   "loader-demo": LoaderDemo,
   "skeleton-demo": SkeletonDemo,
   "card-demo": CardDemo,

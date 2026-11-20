@@ -1,0 +1,44 @@
+---
+title: Message Scroller
+description: "A chat log that follows new messages at the bottom, with a dithered jump-to-end button."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="message-scroller" />
+
+<Playground name="message-scroller" />
+
+## Installation
+
+<Install name="message-scroller" />
+
+## Usage
+
+```tsx
+import { MessageScroller, MessageScrollerButton, MessageScrollerContent, MessageScrollerItem, MessageScrollerViewport } from "@/components/ui/message-scroller";
+
+<MessageScroller>
+  <MessageScrollerViewport>
+    <MessageScrollerContent>
+      {messages.map((m) => <MessageScrollerItem key={m.id}>…</MessageScrollerItem>)}
+    </MessageScrollerContent>
+  </MessageScrollerViewport>
+  <MessageScrollerButton />
+</MessageScroller>
+```
+
+Parts: `MessageScroller` (root, holds the state), `MessageScrollerViewport`, `MessageScrollerContent`, `MessageScrollerItem`, `MessageScrollerButton` and the `useMessageScroller()` hook (`atStart`, `atEnd`, `scrollToStart`, `scrollToEnd`). It starts at the end and follows growing content (new or streaming messages) only while you are at the end.
+
+shadcn's version builds on `@shadcn/react`; this one is plain DOM, so it has no `MessageScrollerProvider`, `scrollAnchor`, or visibility hooks. Give its parent a height.
+
+## Accessibility
+
+- The button is announced as "Scroll to end" and leaves the tab order while hidden.
+- With reduced motion the jump is instant instead of smooth.
+- Consider `role="log"` and `aria-live="polite"` on the viewport for live chats.
+
+## Props
+
+<PropsTable name="message-scroller" />
