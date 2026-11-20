@@ -110,3 +110,9 @@ describe("cursor bump", () => {
     expect(lit(render({ ...frame, cursor: [0.2, 0.5, 1, 0.3] }))).toBeGreaterThan(lit(render(frame)));
   });
 });
+
+describe("radial with zero radius", () => {
+  it("is empty, not NaN", () => {
+    expect(field("radial", 0.5, 0.5, 1, 0, fieldParams("radial", { radius: 0 }))).toBe(0);
+  });
+});

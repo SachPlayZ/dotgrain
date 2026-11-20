@@ -7,7 +7,8 @@ import { buttonVariants } from "fumadocs-ui/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "fumadocs-ui/components/ui/popover";
 import { type ComponentType, type ReactNode, useState, useSyncExternalStore } from "react";
 import { defaultOf, isVisible, type KnobValues, knobsFor, openIn, prompt, snippet } from "@/lib/component-doc";
-import { useDitherTokens } from "@/lib/dotgrain/provider";
+import { DitherProvider, useDitherTokens } from "@/lib/dotgrain/provider";
+import { examples } from "@/registry/examples";
 import type { DitherTokens } from "@/lib/dotgrain/types";
 import { components } from "@/registry/meta";
 import type { ComponentMeta, KnobMeta } from "@/registry/meta/types";
@@ -20,6 +21,11 @@ import { AsciiRain } from "@/registry/ui/ascii-rain";
 import { Button } from "@/registry/ui/button";
 import { Toggle } from "@/registry/ui/toggle";
 import { Switch } from "@/registry/ui/switch";
+import { Input } from "@/registry/ui/input";
+import { Textarea } from "@/registry/ui/textarea";
+import { Label } from "@/registry/ui/label";
+import { Checkbox } from "@/registry/ui/checkbox";
+import { Slider } from "@/registry/ui/slider";
 import { Loader } from "@/registry/ui/loader";
 import { Skeleton } from "@/registry/ui/skeleton";
 import { Card } from "@/registry/ui/card";
@@ -30,7 +36,7 @@ import { HeroTerminal } from "@/registry/ui/hero-terminal";
 import { ScrambleText } from "@/registry/ui/scramble-text";
 
 // Each preview gets its meta example props plus knob values, so props are only known at runtime.
-const COMPONENTS = { "dither-field": DitherField, "dither-image": DitherImage, "dither-progress": DitherProgress, "ascii-video": AsciiVideo, "scramble-text": ScrambleText, "dither-reveal": DitherReveal, "ascii-rain": AsciiRain, button: Button, switch: Switch, toggle: Toggle, loader: Loader, skeleton: Skeleton, card: Card, backdrop: Backdrop, terminal: Terminal, "ascii-chart": AsciiChart, "hero-terminal": HeroTerminal } as unknown as Record<
+const COMPONENTS = { "dither-field": DitherField, "dither-image": DitherImage, "dither-progress": DitherProgress, "ascii-video": AsciiVideo, "scramble-text": ScrambleText, "dither-reveal": DitherReveal, "ascii-rain": AsciiRain, button: Button, switch: Switch, toggle: Toggle, input: Input, textarea: Textarea, label: Label, checkbox: Checkbox, slider: Slider, loader: Loader, skeleton: Skeleton, card: Card, backdrop: Backdrop, terminal: Terminal, "ascii-chart": AsciiChart, "hero-terminal": HeroTerminal } as unknown as Record<
   string,
   ComponentType<Record<string, unknown> & { children?: ReactNode }>
 >;
@@ -102,6 +108,17 @@ function Knob({ knob, values, set }: { knob: KnobMeta; values: KnobValues; set: 
   );
 }
 
+/** Compound components preview their demo with the knob tokens applied through a provider. */
+function Compound({ name, values }: { name: string; values: KnobValues }) {
+  const Example = examples[`${name}-demo`];
+  const tokens = Object.fromEntries(Object.entries(values).filter(([k]) => (TOKENS as string[]).includes(k)));
+  return (
+    <DitherProvider {...tokens}>
+      <Example />
+    </DitherProvider>
+  );
+}
+
 /** Live preview with knobs, and a code tab printing exactly the tuned configuration. */
 export function Playground({ name }: { name: string }) {
   const meta = metaOf(name);
@@ -113,9 +130,13 @@ export function Playground({ name }: { name: string }) {
     <Tabs items={["Preview", "Code"]} className="not-prose">
       <Tab value="Preview" className="p-0">
         <Preview>
-          <Component {...meta.example.props} {...values}>
-            {meta.example.children}
-          </Component>
+          {Component ? (
+            <Component {...meta.example.props} {...values}>
+              {meta.example.children}
+            </Component>
+          ) : (
+            <Compound name={name} values={values} />
+          )}
         </Preview>
         <div className="grid gap-x-6 gap-y-2 p-4 text-sm sm:grid-cols-2">
           {visible.map((knob) => (

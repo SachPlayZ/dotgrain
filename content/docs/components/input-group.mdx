@@ -1,0 +1,38 @@
+---
+title: Input Group
+description: "An input with addons, text and buttons in one box whose underline dithers while focused."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="input-group" />
+
+<Playground name="input-group" />
+
+## Installation
+
+<Install name="input-group" />
+
+## Usage
+
+```tsx
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group";
+
+<InputGroup>
+  <InputGroupAddon>$</InputGroupAddon>
+  <InputGroupInput placeholder="grep components" />
+  <InputGroupAddon align="inline-end"><InputGroupButton>Search</InputGroupButton></InputGroupAddon>
+</InputGroup>
+```
+
+The group draws one box; `InputGroupInput` and `InputGroupTextarea` are borderless inside it. Clicking an addon focuses the input.
+
+## Accessibility
+
+- The group is `role="group"`; name the input itself with `aria-label` or a label.
+- The underline fills while anything inside has focus.
+
+## Props
+
+<PropsTable name="input-group" />

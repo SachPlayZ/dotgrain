@@ -1,0 +1,34 @@
+---
+title: Textarea
+description: "A native textarea on the palette with a dithered underline that fills while focused."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="textarea" />
+
+<Playground name="textarea" />
+
+## Installation
+
+<Install name="textarea" />
+
+## Usage
+
+```tsx
+import { Textarea } from "@/components/ui/textarea";
+
+<Textarea placeholder="Type your message" aria-label="Message" />
+```
+
+Every native textarea attribute and `ref` go to the `<textarea>`; `className` and `style` go to the outer box.
+
+## Accessibility
+
+- A real `<textarea>`; name it with a `<label>` or `aria-label`.
+- The dithered underline is the focus indicator and the canvas is `aria-hidden`.
+
+## Props
+
+<PropsTable name="textarea" />

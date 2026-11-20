@@ -1,0 +1,40 @@
+---
+title: Select
+description: "A Radix select with a palette trigger and a dither-framed option list."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="select" />
+
+<Playground name="select" />
+
+## Installation
+
+<Install name="select" />
+
+## Usage
+
+```tsx
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
+<Select>
+  <SelectTrigger aria-label="Theme"><SelectValue placeholder="Theme" /></SelectTrigger>
+  <SelectContent>
+    <SelectItem value="light">Light</SelectItem>
+    <SelectItem value="dark">Dark</SelectItem>
+  </SelectContent>
+</Select>
+```
+
+Wraps [Radix Select](https://www.radix-ui.com/primitives/docs/components/select) with shadcn's parts (`SelectGroup`, `SelectLabel`, `SelectSeparator`, scroll buttons). The list opens in a portal under the trigger.
+
+## Accessibility
+
+- Radix handles the listbox pattern: typeahead, arrows, Enter, Esc and focus return.
+- The highlighted option gets a dithered wash behind a solid label chip, so contrast holds.
+
+## Props
+
+<PropsTable name="select" />

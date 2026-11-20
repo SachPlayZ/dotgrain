@@ -1,0 +1,41 @@
+---
+title: Input OTP
+description: "A one-time-code input drawn as slots whose active underline dithers full."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="input-otp" />
+
+<Playground name="input-otp" />
+
+## Installation
+
+<Install name="input-otp" />
+
+## Usage
+
+```tsx
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
+
+<InputOTP maxLength={4}>
+  <InputOTPGroup>
+    <InputOTPSlot index={0} />
+    <InputOTPSlot index={1} />
+    <InputOTPSlot index={2} />
+    <InputOTPSlot index={3} />
+  </InputOTPGroup>
+</InputOTP>
+```
+
+Built on [input-otp](https://input-otp.rodz.dev), like shadcn's.
+
+## Accessibility
+
+- One real `<input>` underneath, so paste, autofill (`autocomplete="one-time-code"`) and screen readers work.
+- Slots and underlines are visual only.
+
+## Props
+
+<PropsTable name="input-otp" />

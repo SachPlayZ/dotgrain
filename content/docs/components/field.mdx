@@ -1,0 +1,40 @@
+---
+title: Field
+description: "Form layout parts: field sets, groups, labels, descriptions, ASCII separators and errors."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="field" />
+
+<Playground name="field" />
+
+## Installation
+
+<Install name="field" />
+
+## Usage
+
+```tsx
+import { Field, FieldDescription, FieldError, FieldLabel } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+
+<Field>
+  <FieldLabel htmlFor="name">Name</FieldLabel>
+  <Input id="name" />
+  <FieldDescription>Shown on your profile.</FieldDescription>
+  <FieldError errors={errors.name ? [errors.name] : undefined} />
+</Field>
+```
+
+The same parts as shadcn's Field: `FieldSet`, `FieldLegend`, `FieldGroup`, `Field`, `FieldContent`, `FieldLabel`, `FieldTitle`, `FieldDescription`, `FieldSeparator` and `FieldError`. They are layout only; the controls bring the grain.
+
+## Accessibility
+
+- `FieldSet` and `FieldLegend` are a real `<fieldset>`/`<legend>`; `FieldError` is `role="alert"`, so new errors are announced.
+- Pair `aria-invalid` on the control with `FieldError`.
+
+## Props
+
+<PropsTable name="field" />

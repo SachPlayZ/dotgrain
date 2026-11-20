@@ -1,0 +1,35 @@
+---
+title: Slider
+description: "A Radix slider whose selected range is dithered, with solid square thumbs."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="slider" />
+
+<Playground name="slider" />
+
+## Installation
+
+<Install name="slider" />
+
+## Usage
+
+```tsx
+import { Slider } from "@/components/ui/slider";
+
+<Slider defaultValue={[40]} aria-label="Volume" />
+<Slider defaultValue={[20, 70]} aria-label="Price range" />
+```
+
+Wraps [Radix Slider](https://www.radix-ui.com/primitives/docs/components/slider); pass two values for a range.
+
+## Accessibility
+
+- Each thumb is a `role="slider"` with `aria-valuenow`; arrows, Page Up/Down and Home/End move it.
+- The dithered range is `aria-hidden`.
+
+## Props
+
+<PropsTable name="slider" />

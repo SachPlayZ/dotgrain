@@ -120,8 +120,9 @@ export function Quantize({
         if (ease && source.kind === "field" && source.params) {
           source = { ...source, params: (easer.current ??= createEaser()).step(source.params, seconds, still) };
         }
-        const w = Math.round(width / (tokens.mode === "ascii" ? tokens.cell * GLYPH_ASPECT : tokens.cell));
-        const h = Math.round(height / tokens.cell);
+        // At least one cell, so lines thinner than a cell (focus rules) still draw.
+        const w = width > 0 ? Math.max(1, Math.round(width / (tokens.mode === "ascii" ? tokens.cell * GLYPH_ASPECT : tokens.cell))) : 0;
+        const h = height > 0 ? Math.max(1, Math.round(height / tokens.cell)) : 0;
         const spot = pointer.current && !still ? pointer.current.step(seconds) : undefined;
         const cursor = spot && ([...spot, cursorRadius / height] as [number, number, number, number]);
         if (w <= 0 || h <= 0) return;

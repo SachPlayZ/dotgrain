@@ -12,4 +12,7 @@ describe("registry meta", () => {
   it("names are unique", () => {
     expect(new Set(components.map((c) => c.name)).size).toBe(components.length);
   });
+  it("prop names are identifiers, one prop per row", () => {
+    for (const c of components) for (const p of c.props) expect(p.name, c.name).toMatch(/^\w+$/);
+  });
 });

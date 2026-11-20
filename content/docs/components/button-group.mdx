@@ -1,0 +1,37 @@
+---
+title: Button Group
+description: "Groups related dotgrain buttons into one row or column with text cells and separators."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="button-group" />
+
+<Playground name="button-group" />
+
+## Installation
+
+<Install name="button-group" />
+
+## Usage
+
+```tsx
+import { ButtonGroup } from "@/components/ui/button-group";
+import { Button } from "@/components/ui/button";
+
+<ButtonGroup aria-label="Message actions">
+  <Button variant="outline">Archive</Button>
+  <Button variant="outline">Report</Button>
+</ButtonGroup>
+```
+
+Add `ButtonGroupText` for a label cell and `ButtonGroupSeparator` between buttons.
+
+## Accessibility
+
+- `role="group"`: give it an `aria-label` describing the set.
+
+## Props
+
+<PropsTable name="button-group" />
