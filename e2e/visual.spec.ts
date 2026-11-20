@@ -7,11 +7,16 @@ import { components } from "../registry/meta";
 const backgrounds = components.filter((c) => c.category === "background").map((c) => c.name);
 const palettesFor = (example: string) => (backgrounds.some((n) => example.startsWith(n)) ? Object.keys(PALETTES) : ["ink", "riso", "synthwave"]);
 
+// Demos that load something before their final frame: wait for this selector before checking canvases.
+const READY: Record<string, string> = { "avatar-demo": "#visual img" };
+const ready = (page: Page, example: string) => (READY[example] ? page.waitForSelector(READY[example], { state: "attached" }) : undefined);
+
 for (const example of Object.keys(examples)) {
   for (const palette of palettesFor(example)) {
     for (const mode of ["dither", "ascii"]) {
       test(`${example} · ${palette} · ${mode}`, async ({ page }) => {
         await page.goto(`/visual/${example}?palette=${palette}&mode=${mode}`);
+        await ready(page, example);
         // Every canvas has drawn a frame once it is no longer the default 300×150 surface.
         await page.waitForFunction(() =>
           [...document.querySelectorAll("canvas")].every((c) => c.width !== 300 || c.height !== 150),
@@ -33,6 +38,7 @@ for (const { name, modes } of components) {
       test(`${example} · ${mode} · ${variant}`, async ({ page }) => {
         if (variant === "reduced-motion") await page.emulateMedia({ reducedMotion: "reduce" });
         await page.goto(`/visual/${example}?palette=ink&mode=${mode}${variant === "cpu" ? "&cpu=1" : ""}`);
+        await ready(page, example);
         await page.waitForFunction(() =>
           [...document.querySelectorAll("canvas")].every((c) => c.width !== 300 || c.height !== 150),
         );
