@@ -1,0 +1,41 @@
+---
+title: Drawer
+description: "A Vaul bottom drawer with a dithered drag handle, scrim and frame."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="drawer" />
+
+<Playground name="drawer" />
+
+## Installation
+
+<Install name="drawer" />
+
+## Usage
+
+```tsx
+import { Drawer, DrawerContent, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
+
+<Drawer>
+  <DrawerTrigger>Open</DrawerTrigger>
+  <DrawerContent>
+    <DrawerHeader>
+      <DrawerTitle>Contrast</DrawerTitle>
+    </DrawerHeader>
+  </DrawerContent>
+</Drawer>
+```
+
+Wraps [Vaul](https://vaul.emilkowal.ski), as shadcn does. Drag it down by the dithered handle, or anywhere on the panel, to dismiss.
+
+## Accessibility
+
+- Vaul builds on Radix Dialog: focus trap, Esc to close, focus return.
+- Give every drawer a `DrawerTitle`.
+
+## Props
+
+<PropsTable name="drawer" />

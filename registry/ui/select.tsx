@@ -83,7 +83,7 @@ export const SelectLabel = ({ style, ...props }: ComponentProps<typeof SelectPri
 );
 
 export const SelectSeparator = ({ style, ...props }: ComponentProps<typeof SelectPrimitive.Separator>) => (
-  <SelectPrimitive.Separator {...props} style={{ margin: "4px 0", overflow: "hidden", whiteSpace: "nowrap", opacity: 0.6, ...style }}>
+  <SelectPrimitive.Separator {...props} style={{ width: 0, minWidth: "100%", margin: "4px 0", overflow: "hidden", whiteSpace: "nowrap", opacity: 0.6, ...style }}>
     {"─".repeat(80)}
   </SelectPrimitive.Separator>
 );

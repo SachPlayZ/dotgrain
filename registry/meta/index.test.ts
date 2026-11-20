@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { components } from "./index";
 
@@ -11,6 +12,10 @@ describe("registry meta", () => {
 
   it("names are unique", () => {
     expect(new Set(components.map((c) => c.name)).size).toBe(components.length);
+  });
+  // shadcn's Base UI styles rewrite `asChild` on install, which breaks Radix parts; shipped files avoid it.
+  it("component files never use asChild", () => {
+    for (const c of components) for (const f of c.files) expect(readFileSync(f, "utf8"), f).not.toMatch(/\basChild\b/);
   });
   it("prop names are identifiers, one prop per row", () => {
     for (const c of components) for (const p of c.props) expect(p.name, c.name).toMatch(/^\w+$/);

@@ -1,0 +1,40 @@
+---
+title: Dropdown Menu
+description: "A Radix menu in a dithered frame; the highlighted item gets a dithered wash."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="dropdown-menu" />
+
+<Playground name="dropdown-menu" />
+
+## Installation
+
+<Install name="dropdown-menu" />
+
+## Usage
+
+```tsx
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+
+<DropdownMenu>
+  <DropdownMenuTrigger>Options</DropdownMenuTrigger>
+  <DropdownMenuContent>
+    <DropdownMenuItem>Profile</DropdownMenuItem>
+    <DropdownMenuItem>Settings</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
+```
+
+Wraps [Radix Dropdown Menu](https://www.radix-ui.com/primitives/docs/components/dropdown-menu) with all of shadcn's parts: groups, labels, checkbox and radio items, submenus, separators and shortcuts. Token props on `DropdownMenuContent` reach every item inside.
+
+## Accessibility
+
+- Radix handles the menu pattern: arrows, typeahead, Enter, Esc and focus return.
+- The highlighted item's label sits on a solid chip over the dither, so contrast holds.
+
+## Props
+
+<PropsTable name="dropdown-menu" />

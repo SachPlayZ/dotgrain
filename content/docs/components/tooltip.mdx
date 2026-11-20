@@ -1,0 +1,37 @@
+---
+title: Tooltip
+description: "A Radix tooltip: a small label with a one-mark dithered rim."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="tooltip" />
+
+<Playground name="tooltip" />
+
+## Installation
+
+<Install name="tooltip" />
+
+## Usage
+
+```tsx
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+
+<Tooltip>
+  <TooltipTrigger>Hover</TooltipTrigger>
+  <TooltipContent>Add to library</TooltipContent>
+</Tooltip>
+```
+
+Wraps [Radix Tooltip](https://www.radix-ui.com/primitives/docs/components/tooltip). As in shadcn, each `Tooltip` brings its own provider; wrap many in one `TooltipProvider` to share the delay.
+
+## Accessibility
+
+- Opens on hover and on keyboard focus; Esc closes it.
+- Content is linked with `aria-describedby`; keep it short and never put the only copy of important text there.
+
+## Props
+
+<PropsTable name="tooltip" />

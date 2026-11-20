@@ -1,0 +1,39 @@
+---
+title: Sonner
+description: "Sonner toasts in palette colours with dithered status marks."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="sonner" />
+
+<Playground name="sonner" />
+
+## Installation
+
+<Install name="sonner" />
+
+## Usage
+
+```tsx
+import { toast } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
+
+// once, in your root layout
+<Toaster />
+
+// anywhere
+toast.success("Palette saved");
+```
+
+Wraps [Sonner](https://sonner.emilkowal.ski), shadcn's toast. Render one `Toaster` in your root layout and call `toast()` from `sonner`. Success, info, warning, error and loading toasts get a small dithered mark; loading spins.
+
+## Accessibility
+
+- Sonner announces toasts in a polite live region.
+- Toasts pause while hovered or focused; don't put the only copy of an action in one.
+
+## Props
+
+<PropsTable name="sonner" />

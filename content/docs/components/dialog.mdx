@@ -1,0 +1,43 @@
+---
+title: Dialog
+description: "A Radix modal over a dithered screen-door scrim, its frame materialising as it opens."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="dialog" />
+
+<Playground name="dialog" />
+
+## Installation
+
+<Install name="dialog" />
+
+## Usage
+
+```tsx
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+
+<Dialog>
+  <DialogTrigger>Open</DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Are you sure?</DialogTitle>
+      <DialogDescription>This changes every preview.</DialogDescription>
+    </DialogHeader>
+  </DialogContent>
+</Dialog>
+```
+
+Wraps [Radix Dialog](https://www.radix-ui.com/primitives/docs/components/dialog) with shadcn's parts (`DialogHeader`, `DialogFooter`, `DialogTitle`, `DialogDescription`, `DialogClose`). The scrim is an ordered-dither level eased in over the page; the panel's frame starts fully filled and clears to a dithered border.
+
+## Accessibility
+
+- Radix traps focus inside, closes on Esc and returns focus to the trigger.
+- Give every dialog a `DialogTitle`; add a `DialogDescription` or pass `aria-describedby={undefined}`.
+- Scrim and frame canvases are `aria-hidden`.
+
+## Props
+
+<PropsTable name="dialog" />

@@ -1,0 +1,41 @@
+---
+title: Sheet
+description: "A Radix dialog docked to a screen edge, with a dithered scrim and frame."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="sheet" />
+
+<Playground name="sheet" />
+
+## Installation
+
+<Install name="sheet" />
+
+## Usage
+
+```tsx
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+
+<Sheet>
+  <SheetTrigger>Open</SheetTrigger>
+  <SheetContent side="left">
+    <SheetHeader>
+      <SheetTitle>Settings</SheetTitle>
+    </SheetHeader>
+  </SheetContent>
+</Sheet>
+```
+
+Built on [Radix Dialog](https://www.radix-ui.com/primitives/docs/components/dialog), as in shadcn. Left and right sheets are 75% wide up to 384px; top and bottom span the width.
+
+## Accessibility
+
+- Same as Dialog: focus trap, Esc to close, focus returns to the trigger.
+- Give every sheet a `SheetTitle`.
+
+## Props
+
+<PropsTable name="sheet" />
