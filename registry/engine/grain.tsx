@@ -49,6 +49,52 @@ export function useEntered(): boolean {
   return entered;
 }
 
+const WASH_SOFTNESS = 0.25;
+
+/**
+ * A highlight wash fitted to its label: solid behind the label's content, dithering out after it, so the label
+ * reads in the background colour without a hard block behind it. Put the ref on the label (a child of the row
+ * the Grain fills) and give the Grain these params with mode="dither" (dense glyphs would bury the label).
+ * `off` is the level when not highlighted.
+ */
+export function useWash(on: boolean, off = -0.5): [(el: HTMLElement | null) => (() => void) | undefined, Record<string, number>] {
+  const [end, setEnd] = useState(0.6);
+  const ref = useCallback(
+    (el: HTMLElement | null) => {
+      const row = el?.offsetParent;
+      if (!el || !row) return;
+      // The content's own box, not the label's: labels often stretch (flex: 1) to push a shortcut right.
+      const measure = () => {
+        const range = document.createRange();
+        range.selectNodeContents(el);
+        const box = row.getBoundingClientRect();
+        if (box.width) setEnd(Math.min(1, (range.getBoundingClientRect().right - box.left) / box.width));
+      };
+      measure();
+      if (typeof ResizeObserver === "undefined") return;
+      const observer = new ResizeObserver(measure);
+      observer.observe(el);
+      observer.observe(row);
+      return () => observer.disconnect();
+    },
+    // Re-measure whenever the highlight turns on: the label may have changed while it was off.
+    [on], // eslint-disable-line react-hooks/exhaustive-deps
+  );
+  // Level is 1 up to value − softness: the solid part ends a hair past the label, then fades over a quarter row.
+  return [ref, { value: on ? end + 0.04 + WASH_SOFTNESS : off, softness: WASH_SOFTNESS }];
+}
+
+/** The screen-door scrim behind modal overlays: a dimmed, softly blurred page under a faint grey dither. */
+export function Scrim({ entered, ...tokens }: Partial<DitherTokens> & { entered: boolean }) {
+  return (
+    <>
+      <div style={{ position: "absolute", inset: 0, background: "rgb(0 0 0 / 0.5)", backdropFilter: "blur(2px)", opacity: entered ? 1 : 0, transition: "opacity 200ms ease" }} />
+      {/* Ink, not the active palette: a coloured screen-door over the page reads as noise, a grey one as shade. */}
+      <Grain {...tokens} palette="ink" mode="dither" field="frame" params={{ border: 0, fill: entered ? 0.3 : 0 }} style={{ opacity: 0.18 }} />
+    </>
+  );
+}
+
 function assignRef<T>(ref: Ref<T> | undefined, node: T | null) {
   if (typeof ref === "function") ref(node);
   else if (ref) ref.current = node;

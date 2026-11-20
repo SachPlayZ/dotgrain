@@ -2,7 +2,7 @@
 
 import { Accordion as AccordionPrimitive } from "radix-ui";
 import type { ComponentProps } from "react";
-import { Grain, splitTokens, useDataAttr, useInk } from "@/lib/dotgrain/grain";
+import { Grain, splitTokens, useDataAttr, useInk, useWash } from "@/lib/dotgrain/grain";
 import type { DitherTokens } from "@/lib/dotgrain/types";
 
 export const Accordion = AccordionPrimitive.Root;
@@ -22,12 +22,13 @@ export function AccordionItem({ children, style, ...props }: AccordionItemProps)
 
 export type AccordionTriggerProps = Omit<ComponentProps<typeof AccordionPrimitive.Trigger>, keyof DitherTokens> & Partial<DitherTokens>;
 
-/** The heading button; ▸ turns ▾ and a dithered wash sweeps in behind it while open. */
+/** The heading button; ▸ turns ▾ and a wash sweeps in while open: solid behind the title, dithering out after it. */
 export function AccordionTrigger({ children, style, ref, ...props }: AccordionTriggerProps) {
   const [tokens, rest] = splitTokens(props);
   const { bg, fg } = useInk(tokens);
   const [state, own] = useDataAttr<HTMLButtonElement>("data-state", ref);
   const open = state === "open";
+  const [label, wash] = useWash(open);
   return (
     <AccordionPrimitive.Header style={{ margin: 0, display: "flex" }}>
       <AccordionPrimitive.Trigger
@@ -35,8 +36,8 @@ export function AccordionTrigger({ children, style, ref, ...props }: AccordionTr
         ref={own}
         style={{ position: "relative", flex: 1, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, padding: "12px 4px", border: 0, background: bg, color: fg, font: "inherit", fontWeight: 500, textAlign: "left", cursor: "pointer", ...style }}
       >
-        <Grain {...tokens} params={{ value: open ? 0.35 : -0.5, softness: 0.6 }} />
-        <span style={{ position: "relative", padding: "0 0.25em", background: bg }}>{children}</span>
+        <Grain {...tokens} mode="dither" params={wash} />
+        <span ref={label} style={{ position: "relative", padding: "0 0.25em", color: open ? bg : fg }}>{children}</span>
         <span aria-hidden="true" style={{ position: "relative", fontFamily: "monospace", background: bg }}>{open ? "▾" : "▸"}</span>
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>

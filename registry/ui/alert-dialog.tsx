@@ -2,7 +2,7 @@
 
 import { AlertDialog as AlertDialogPrimitive } from "radix-ui";
 import { useState, type ComponentProps } from "react";
-import { Grain, splitTokens, useEntered, useInk } from "@/lib/dotgrain/grain";
+import { Grain, Scrim, splitTokens, useEntered, useInk } from "@/lib/dotgrain/grain";
 import type { DitherTokens } from "@/lib/dotgrain/types";
 
 type Tokens = Partial<DitherTokens>;
@@ -13,13 +13,13 @@ export const AlertDialogPortal = AlertDialogPrimitive.Portal;
 
 export type AlertDialogOverlayProps = Omit<ComponentProps<typeof AlertDialogPrimitive.Overlay>, keyof DitherTokens> & Tokens;
 
-/** A screen-door scrim: an ordered-dither level that eases in over the page. */
+/** A dimmed, blurred page under a faint grey screen-door dither, easing in. */
 export function AlertDialogOverlay({ style, ...props }: AlertDialogOverlayProps) {
   const [tokens, rest] = splitTokens(props);
   const entered = useEntered();
   return (
     <AlertDialogPrimitive.Overlay {...rest} style={{ position: "fixed", inset: 0, zIndex: 50, ...style }}>
-      <Grain {...tokens} mode="dither" field="frame" params={{ border: 0, fill: entered ? 0.45 : 0 }} style={{ opacity: 0.9 }} />
+      <Scrim {...tokens} entered={entered} />
     </AlertDialogPrimitive.Overlay>
   );
 }

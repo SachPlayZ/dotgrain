@@ -2,7 +2,7 @@
 
 import { NavigationMenu as NavigationMenuPrimitive } from "radix-ui";
 import { useState, type ComponentProps, type CSSProperties } from "react";
-import { Grain, splitTokens, useDataAttr, useInk } from "@/lib/dotgrain/grain";
+import { Grain, splitTokens, useDataAttr, useInk, useWash } from "@/lib/dotgrain/grain";
 import { DitherProvider } from "@/lib/dotgrain/provider";
 import type { DitherTokens } from "@/lib/dotgrain/types";
 
@@ -70,12 +70,13 @@ export function NavigationMenuViewport({ style, ref, ...props }: ComponentProps<
   );
 }
 
-/** A link; hovering or focusing it dithers a wash behind a solid chip. */
+/** A link; hovering or focusing it lays a wash that is solid behind its text, then dithers out. */
 export function NavigationMenuLink({ children, style, onPointerEnter, onPointerLeave, onFocus, onBlur, ...props }: ComponentProps<typeof NavigationMenuPrimitive.Link>) {
   const { bg, fg } = useInk({});
   const [on, setOn] = useState(false);
   const enter = () => setOn(true);
   const leave = () => setOn(false);
+  const [label, wash] = useWash(on);
   return (
     <NavigationMenuPrimitive.Link
       {...props}
@@ -85,8 +86,8 @@ export function NavigationMenuLink({ children, style, onPointerEnter, onPointerL
       onBlur={(e) => (leave(), onBlur?.(e))}
       style={{ position: "relative", display: "block", padding: 8, color: fg, textDecoration: "none", outline: "none", ...style }}
     >
-      <Grain params={{ value: on ? 0.9 : -0.5, softness: 0.35 }} />
-      <span style={{ position: "relative", display: "block", padding: "0 0.25em", background: on ? fg : bg, color: on ? bg : fg }}>{children}</span>
+      <Grain mode="dither" params={wash} />
+      <span ref={label} style={{ position: "relative", display: "block", padding: "0 0.25em", color: on ? bg : fg }}>{children}</span>
     </NavigationMenuPrimitive.Link>
   );
 }

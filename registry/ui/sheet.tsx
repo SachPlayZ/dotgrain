@@ -2,7 +2,7 @@
 
 import { Dialog as SheetPrimitive } from "radix-ui";
 import type { ComponentProps, CSSProperties } from "react";
-import { Grain, splitTokens, useEntered, useInk } from "@/lib/dotgrain/grain";
+import { Grain, Scrim, splitTokens, useEntered, useInk } from "@/lib/dotgrain/grain";
 import type { DitherTokens } from "@/lib/dotgrain/types";
 
 type Tokens = Partial<DitherTokens>;
@@ -22,13 +22,13 @@ const EDGE: Record<Side, CSSProperties> = {
 
 export type SheetOverlayProps = Omit<ComponentProps<typeof SheetPrimitive.Overlay>, keyof DitherTokens> & Tokens;
 
-/** A screen-door scrim: an ordered-dither level that eases in over the page. */
+/** A dimmed, blurred page under a faint grey screen-door dither, easing in. */
 export function SheetOverlay({ style, ...props }: SheetOverlayProps) {
   const [tokens, rest] = splitTokens(props);
   const entered = useEntered();
   return (
     <SheetPrimitive.Overlay {...rest} style={{ position: "fixed", inset: 0, zIndex: 50, ...style }}>
-      <Grain {...tokens} mode="dither" field="frame" params={{ border: 0, fill: entered ? 0.35 : 0 }} style={{ opacity: 0.9 }} />
+      <Scrim {...tokens} entered={entered} />
     </SheetPrimitive.Overlay>
   );
 }
