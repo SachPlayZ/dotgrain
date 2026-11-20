@@ -1,0 +1,34 @@
+---
+title: Separator
+description: "A Radix separator drawn in box glyphs, horizontal or vertical."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="separator" />
+
+<Playground name="separator" />
+
+## Installation
+
+<Install name="separator" />
+
+## Usage
+
+```tsx
+import { Separator } from "@/components/ui/separator";
+
+<Separator />
+```
+
+It is drawn in ─ or │ glyphs, so it follows the font, not the dither tokens. It stretches to its container without adding to its size; vertical ones need a parent with a height.
+
+## Accessibility
+
+- Decorative by default (`role="none"`), like shadcn.
+- With `decorative={false}` it is a `separator` with `aria-orientation`.
+
+## Props
+
+<PropsTable name="separator" />

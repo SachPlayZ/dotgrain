@@ -1,0 +1,34 @@
+---
+title: Spinner
+description: "shadcn's small inline spinner, as a dithered Loader ring."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="spinner" />
+
+<Playground name="spinner" />
+
+## Installation
+
+<Install name="spinner" />
+
+## Usage
+
+```tsx
+import { Spinner } from "@/components/ui/spinner";
+
+<Spinner />
+```
+
+A thin wrapper over [Loader](/docs/components/loader) with a 16px default, aligned to the text around it.
+
+## Accessibility
+
+- `role="status"` with a hidden label, read out when it appears.
+- Reduced motion freezes the ring on one frame.
+
+## Props
+
+<PropsTable name="spinner" />

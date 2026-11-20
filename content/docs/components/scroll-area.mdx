@@ -1,0 +1,34 @@
+---
+title: Scroll Area
+description: "Native scrolling inside a Radix scroll area with a dithered track and thumb."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="scroll-area" />
+
+<Playground name="scroll-area" />
+
+## Installation
+
+<Install name="scroll-area" />
+
+## Usage
+
+```tsx
+import { ScrollArea } from "@/components/ui/scroll-area";
+
+<ScrollArea style={{ height: 200 }}>…</ScrollArea>
+```
+
+A vertical `ScrollBar` is built in. For sideways scrolling, add `<ScrollBar orientation="horizontal" />` as a child.
+
+## Accessibility
+
+- Scrolling stays native: wheel, touch and keyboard all work.
+- Bar canvases are hidden from assistive tech.
+
+## Props
+
+<PropsTable name="scroll-area" />

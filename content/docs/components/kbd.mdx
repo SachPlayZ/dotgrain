@@ -1,0 +1,36 @@
+---
+title: Kbd
+description: "A key cap: monospace text in a thin dithered frame, with a group for chords."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="kbd" />
+
+<Playground name="kbd" />
+
+## Installation
+
+<Install name="kbd" />
+
+## Usage
+
+```tsx
+import { Kbd, KbdGroup } from "@/components/ui/kbd";
+
+<KbdGroup>
+  <Kbd>⌘</Kbd>
+  <Kbd>K</Kbd>
+</KbdGroup>
+```
+
+Both parts render `kbd` elements, so keys read as keyboard input.
+
+## Accessibility
+
+- Real `kbd` text; the frame canvas is hidden.
+
+## Props
+
+<PropsTable name="kbd" />

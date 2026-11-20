@@ -1,0 +1,40 @@
+---
+title: Empty
+description: "An empty state with centred media in a dithered glow, a title, description and actions."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="empty" />
+
+<Playground name="empty" />
+
+## Installation
+
+<Install name="empty" />
+
+## Usage
+
+```tsx
+import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
+
+<Empty>
+  <EmptyHeader>
+    <EmptyMedia variant="icon">∅</EmptyMedia>
+    <EmptyTitle>No projects yet</EmptyTitle>
+    <EmptyDescription>Start by creating one.</EmptyDescription>
+  </EmptyHeader>
+  <EmptyContent>…</EmptyContent>
+</Empty>
+```
+
+Tokens on `Empty` reach the media glow.
+
+## Accessibility
+
+- All text is real DOM; the glow canvas is hidden.
+
+## Props
+
+<PropsTable name="empty" />

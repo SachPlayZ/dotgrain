@@ -1,0 +1,33 @@
+---
+title: Progress
+description: "shadcn's progress bar, as a DitherProgress whose dithered edge eases to the value."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="progress" />
+
+<Playground name="progress" />
+
+## Installation
+
+<Install name="progress" />
+
+## Usage
+
+```tsx
+import { Progress } from "@/components/ui/progress";
+
+<Progress value={33} />
+```
+
+A thin wrapper over [DitherProgress](/docs/components/dither-progress) under shadcn's name and props. `null` reads as 0.
+
+## Accessibility
+
+- `role="progressbar"` with `aria-valuenow`, `aria-valuemin` and `aria-valuemax`.
+
+## Props
+
+<PropsTable name="progress" />

@@ -1,0 +1,35 @@
+---
+title: Aspect Ratio
+description: "Radix's box that holds a width-to-height ratio, for dithered images and fields."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="aspect-ratio" />
+
+<Playground name="aspect-ratio" />
+
+## Installation
+
+<Install name="aspect-ratio" />
+
+## Usage
+
+```tsx
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+
+<AspectRatio ratio={16 / 9}>
+  <DitherImage src="/hero.jpg" alt="…" style={{ width: "100%", height: "100%" }} />
+</AspectRatio>
+```
+
+Layout only, like shadcn's: it draws nothing. Put a [DitherImage](/docs/components/dither-image) or [DitherField](/docs/components/dither-field) inside.
+
+## Accessibility
+
+- No semantics of its own; the content inside carries them.
+
+## Props
+
+<PropsTable name="aspect-ratio" />
