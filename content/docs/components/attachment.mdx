@@ -1,0 +1,41 @@
+---
+title: Attachment
+description: "A file chip in a dithered frame that shimmers while it uploads."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="attachment" />
+
+<Playground name="attachment" />
+
+## Installation
+
+<Install name="attachment" />
+
+## Usage
+
+```tsx
+import { Attachment, AttachmentContent, AttachmentDescription, AttachmentMedia, AttachmentTitle } from "@/components/ui/attachment";
+
+<Attachment state="uploading">
+  <AttachmentMedia>▤</AttachmentMedia>
+  <AttachmentContent>
+    <AttachmentTitle>brief.pdf</AttachmentTitle>
+    <AttachmentDescription>Uploading…</AttachmentDescription>
+  </AttachmentContent>
+</Attachment>
+```
+
+Parts: `AttachmentGroup` (a row that scrolls sideways), `AttachmentMedia`, `AttachmentContent`, `AttachmentTitle`, `AttachmentDescription`, `AttachmentActions`, `AttachmentAction` (a small ghost button), `AttachmentTrigger` (makes the whole chip clickable). shadcn's `asChild` is left out.
+
+## Accessibility
+
+- `uploading` and `processing` set `aria-busy`; say what is happening in `AttachmentDescription` too.
+- Give each `AttachmentAction` an `aria-label` ("Remove brief.pdf").
+- Dither canvases are hidden from assistive tech.
+
+## Props
+
+<PropsTable name="attachment" />

@@ -1,0 +1,35 @@
+---
+title: Direction
+description: "Sets left-to-right or right-to-left reading for every Radix-based component inside."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="direction" />
+
+<Playground name="direction" />
+
+## Installation
+
+<Install name="direction" />
+
+## Usage
+
+```tsx
+import { DirectionProvider } from "@/components/ui/direction";
+
+<DirectionProvider direction="rtl">
+  <div dir="rtl">…</div>
+</DirectionProvider>
+```
+
+Wrap your app (or a section) once. Radix-based components (Slider, Tabs, menus, Toggle Group…) read it to flip arrow keys and layout. Set `dir` on an element too, so the browser lays text out the same way. `useDirection()` returns the current value.
+
+## Accessibility
+
+- Match `dir` to the content language; screen readers use it to read in the right order.
+
+## Props
+
+<PropsTable name="direction" />

@@ -1,0 +1,38 @@
+---
+title: Message
+description: "Layout for one chat turn: avatar, header, bubbles and footer, mirrored for the sender."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="message" />
+
+<Playground name="message" />
+
+## Installation
+
+<Install name="message" />
+
+## Usage
+
+```tsx
+import { Message, MessageContent, MessageHeader } from "@/components/ui/message";
+
+<Message align="end">
+  <MessageContent>
+    <MessageHeader>You</MessageHeader>
+    …
+  </MessageContent>
+</Message>
+```
+
+Parts: `MessageGroup`, `Message`, `MessageAvatar`, `MessageContent`, `MessageHeader`, `MessageFooter`. Pure layout: put a [Bubble](/docs/components/bubble), [Attachment](/docs/components/attachment) or [Marker](/docs/components/marker) inside, and an [Avatar](/docs/components/avatar) in `MessageAvatar`.
+
+## Accessibility
+
+- Put the sender's name in `MessageHeader` (or an `aria-label` on the Message) so each turn is attributed.
+
+## Props
+
+<PropsTable name="message" />

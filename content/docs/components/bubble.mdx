@@ -1,0 +1,36 @@
+---
+title: Bubble
+description: "A chat bubble: a solid pane of text set in a dithered mat."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="bubble" />
+
+<Playground name="bubble" />
+
+## Installation
+
+<Install name="bubble" />
+
+## Usage
+
+```tsx
+import { Bubble, BubbleContent } from "@/components/ui/bubble";
+
+<Bubble align="end">
+  <BubbleContent>Yes, and it recolours live.</BubbleContent>
+</Bubble>
+```
+
+Parts: `BubbleGroup`, `Bubble` (carries `variant` and `align`), `BubbleContent`, `BubbleReactions`. Text always sits on a solid pane; the dither is the mat around it, so it reads in every palette. shadcn's `asChild` on `BubbleContent` is left out; put a link or button inside it instead.
+
+## Accessibility
+
+- Give `BubbleReactions` an `aria-label` when it holds only emoji.
+- Dither canvases are hidden from assistive tech.
+
+## Props
+
+<PropsTable name="bubble" />

@@ -1,0 +1,35 @@
+---
+title: Marker
+description: "An inline status line in a feed, plain, between box-glyph rules or underlined."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="marker" />
+
+<Playground name="marker" />
+
+## Installation
+
+<Install name="marker" />
+
+## Usage
+
+```tsx
+import { Marker, MarkerContent } from "@/components/ui/marker";
+
+<Marker variant="separator">
+  <MarkerContent>Today</MarkerContent>
+</Marker>
+```
+
+Parts: `MarkerIcon` (hidden from assistive tech) and `MarkerContent`. The rules are box glyphs (`─`), so there is no canvas. shadcn's `asChild` is left out.
+
+## Accessibility
+
+- The icon and rules are decorative; the content carries the meaning.
+
+## Props
+
+<PropsTable name="marker" />

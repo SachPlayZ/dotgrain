@@ -81,7 +81,8 @@ for (const [example, { open, shown }] of Object.entries(OPEN)) {
       await page.waitForFunction(() =>
         [...document.querySelectorAll("canvas")].every((c) => c.width !== 300 || c.height !== 150),
       );
-      await expect(page).toHaveScreenshot(`${example}-open-${mode}.png`);
+      // The modal scrim's backdrop blur is slow to capture under CI's software rendering.
+      await expect(page).toHaveScreenshot(`${example}-open-${mode}.png`, { timeout: 20_000 });
     });
   }
 }
