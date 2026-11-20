@@ -1,6 +1,7 @@
 import asciiRain from "./ascii-rain.ts";
 import button from "./button.ts";
 import toggle from "./toggle.ts";
+import switchMeta from "./switch.ts";
 import loader from "./loader.ts";
 import skeleton from "./skeleton.ts";
 import backdrop from "./backdrop.ts";
@@ -16,4 +17,4 @@ import ditherProgress from "./dither-progress.ts";
 import scrambleText from "./scramble-text.ts";
 import type { ComponentMeta } from "./types.ts";
 
-export const components: ComponentMeta[] = [ditherField, ditherImage, ditherProgress, asciiVideo, scrambleText, ditherReveal, asciiRain, button, toggle, loader, skeleton, card, backdrop, terminal, asciiChart, heroTerminal];
+export const components: ComponentMeta[] = [ditherField, ditherImage, ditherProgress, asciiVideo, scrambleText, ditherReveal, asciiRain, button, switchMeta, toggle, loader, skeleton, card, backdrop, terminal, asciiChart, heroTerminal];

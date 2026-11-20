@@ -1,6 +1,6 @@
 ---
 title: Toggle
-description: A native checkbox switch with a dithered track that eases between off and on.
+description: A two-state press button on Radix whose face dithers full when pressed.
 ---
 
 import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
@@ -19,20 +19,17 @@ import { Playground } from '@/components/site/playground';
 ```tsx
 import { Toggle } from "@/components/ui/toggle";
 
-<label>
-  <Toggle name="notifications" defaultChecked /> Notifications
-</label>
+<Toggle aria-label="Toggle bold">Bold</Toggle>
 
-<Toggle aria-label="Dark mode" checked={dark} onChange={(e) => setDark(e.target.checked)} />
+<Toggle variant="outline" pressed={italic} onPressedChange={setItalic}>Italic</Toggle>
 ```
 
-Switching on dithers the track full from the left while the thumb slides across. It works controlled (`checked` + `onChange`) or uncontrolled (`defaultChecked`), and every native checkbox attribute (`name`, `value`, `required`, `disabled`, …) passes through.
+Hovering hints a dithered fill; pressing dithers the face full. It wraps [Radix Toggle](https://www.radix-ui.com/primitives/docs/components/toggle), with the same API as shadcn's Toggle. For an on/off setting, use [Switch](/docs/components/switch).
 
 ## Accessibility and performance
 
-- The control is a real `<input type="checkbox" role="switch">`, invisible but covering the track: clicks, Space, labels and form submission are all native. Name it with a wrapping `<label>` or `aria-label`.
-- A focus ring is drawn on the track when the input is focused from the keyboard.
-- The track canvas is `aria-hidden` and draws only while the fill eases. Under `prefers-reduced-motion: reduce` the fill and thumb snap.
+- A native `<button>` with `aria-pressed`; the label is real DOM text on a solid chip, legible over any fill.
+- The face canvas is `aria-hidden` and draws only while the fill eases.
 
 ## Props
 

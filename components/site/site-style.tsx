@@ -1,9 +1,10 @@
 "use client";
 
-import { createContext, type ReactNode, use, useState } from "react";
+import { createContext, type ReactNode, use, useState, useSyncExternalStore } from "react";
 import { DitherProvider } from "@/lib/dotgrain/provider";
 import { PALETTES } from "@/lib/dotgrain/palettes";
 import type { DitherTokens } from "@/lib/dotgrain/types";
+import { DEFAULT_THEME, THEME_KEY, THEMES } from "@/lib/themes";
 
 type StyleTokens = Partial<Pick<DitherTokens, "mode" | "pattern" | "palette" | "cell">>;
 
@@ -12,12 +13,32 @@ const StyleContext = createContext<{ tokens: StyleTokens; setTokens: (tokens: St
   setTokens: () => {},
 });
 
-/** Wraps the site in a DitherProvider driven by the style bar, so every preview restyles at once. */
+// The theme lives on <html data-dg-theme> (set before paint by `themeInit`), so read it from there.
+function subscribe(onChange: () => void) {
+  const observer = new MutationObserver(onChange);
+  observer.observe(document.documentElement, { attributeFilter: ["data-dg-theme"] });
+  return () => observer.disconnect();
+}
+
+export function useSiteTheme() {
+  const name = useSyncExternalStore(subscribe, () => document.documentElement.dataset.dgTheme ?? DEFAULT_THEME, () => DEFAULT_THEME);
+  const theme = THEMES.find((t) => t.name === name) ?? THEMES[0];
+  const setTheme = (next: string) => {
+    document.documentElement.dataset.dgTheme = next;
+    try {
+      localStorage.setItem(THEME_KEY, next);
+    } catch {}
+  };
+  return { theme, setTheme };
+}
+
+/** Wraps the site in a DitherProvider driven by the theme and style bar, so every preview restyles at once. */
 export function SiteStyle({ font, children }: { font: string; children: ReactNode }) {
   const [tokens, setTokens] = useState<StyleTokens>({});
+  const { theme } = useSiteTheme();
   return (
     <StyleContext value={{ tokens, setTokens }}>
-      <DitherProvider {...tokens} font={font}>
+      <DitherProvider palette={theme.palette} {...tokens} font={font}>
         {children}
       </DitherProvider>
     </StyleContext>
@@ -29,6 +50,7 @@ const PATTERNS = ["bayer2", "bayer4", "bayer8", "blueNoise"] as const;
 /** Site-wide tokens: mode, pattern, palette and cell for every preview. */
 export function StyleBar() {
   const { tokens, setTokens } = use(StyleContext);
+  const { theme } = useSiteTheme();
   const mode = tokens.mode ?? "dither";
   const cell = tokens.cell ?? (mode === "ascii" ? 10 : 3);
   const set = (next: StyleTokens) => setTokens({ ...tokens, ...next });
@@ -53,7 +75,7 @@ export function StyleBar() {
         ))}
       </select>
       <label htmlFor="style-palette">palette</label>
-      <select id="style-palette" className={select} value={(tokens.palette as string) ?? "ink"} onChange={(e) => set({ palette: e.target.value as keyof typeof PALETTES })}>
+      <select id="style-palette" className={select} value={(tokens.palette as string) ?? theme.palette} onChange={(e) => set({ palette: e.target.value as keyof typeof PALETTES })}>
         {Object.keys(PALETTES).map((p) => (
           <option key={p}>{p}</option>
         ))}
@@ -67,5 +89,23 @@ export function StyleBar() {
         Reset
       </button>
     </fieldset>
+  );
+}
+
+/** Site colour theme: recolours the chrome and every canvas. */
+export function ThemePicker() {
+  const { theme, setTheme } = useSiteTheme();
+  return (
+    <label className="flex items-center gap-1.5 text-sm text-fd-muted-foreground">
+      <span className="sr-only">Theme</span>
+      <span aria-hidden="true" className="size-3 rounded-full bg-fd-primary" />
+      <select className="rounded-md bg-transparent py-1 font-mono text-xs hover:text-fd-foreground" value={theme.name} onChange={(e) => setTheme(e.target.value)}>
+        {THEMES.map((t) => (
+          <option key={t.name} value={t.name}>
+            {t.label}
+          </option>
+        ))}
+      </select>
+    </label>
   );
 }

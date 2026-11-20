@@ -6,7 +6,7 @@ The full product brief is `docs/dotgrain-brief.md`. Specs and tickets live in Gi
 
 ## Non-negotiable decisions
 
-- **No runtime dependencies in shipped components.** The render engine is raw WebGL2 written in this repo. Do not add three.js, OGL, regl, pixi or any other graphics library. Do not add animation libraries (no Motion/Framer) to registry components; the engine's scheduler handles animation.
+- **Engine has no runtime dependencies; components may use shadcn's primitives.** Components may depend only on the packages shadcn itself uses (`radix-ui`, `cmdk`, `vaul`, `sonner`, `embla-carousel-react`, `react-day-picker`, `input-otp`, `react-resizable-panels`), listed in their meta `dependencies`. The render engine is raw WebGL2 written in this repo. Do not add three.js, OGL, regl, pixi or any other graphics library. Do not add animation libraries (no Motion/Framer) to registry components; the engine's scheduler handles animation.
 - **One engine, thin components.** Every component renders through `<Quantize>` from `registry/engine`. Components never create their own WebGL context.
 - **Free vs paid.** This repo is MIT and public. It contains only free components. Paid ("Pro") components will live in a separate private repo and registry (`@dotgrain-pro`). Never add Pro code, tokens or license keys here.
 - **Accessibility first.** Real text is real DOM text. Canvases are `aria-hidden="true"`. Effects never replace content.
@@ -66,7 +66,7 @@ Run `pnpm typecheck && pnpm test && pnpm registry:build` before calling any task
 
 - Every component is one registry item, type `registry:ui`, with `"registryDependencies": ["@dotgrain/engine"]`.
 - `@dotgrain/engine` is type `registry:lib`. Its files install to the user's `lib/dotgrain/` folder.
-- `dependencies` in registry items should be empty. If a component truly needs an npm package, stop and ask.
+- `dependencies` in registry items come from meta `dependencies` and may only list `radix-ui`, `cmdk`, `vaul`, `sonner`, `embla-carousel-react`, `react-day-picker`, `input-otp`, `react-resizable-panels`. Any other package: stop and ask.
 - Fill `title`, `description` (one plain sentence; it feeds search, llms.txt and the copy prompt), `categories`, and `meta: { "modes": ["dither" | "ascii"] }`.
 - File names are kebab-case (`dither-image.tsx`); exports are PascalCase (`DitherImage`).
 - Every component file starts with `"use client";`.

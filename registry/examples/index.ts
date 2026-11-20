@@ -2,6 +2,7 @@ import type { ComponentType } from "react";
 import AsciiRainDemo from "./ascii-rain-demo";
 import ButtonDemo from "./button-demo";
 import ToggleDemo from "./toggle-demo";
+import SwitchDemo from "./switch-demo";
 import LoaderDemo from "./loader-demo";
 import SkeletonDemo from "./skeleton-demo";
 import BackdropDemo from "./backdrop-demo";
@@ -39,6 +40,7 @@ export const examples: Record<string, ComponentType> = {
   "ascii-rain-demo": AsciiRainDemo,
   "button-demo": ButtonDemo,
   "toggle-demo": ToggleDemo,
+  "switch-demo": SwitchDemo,
   "loader-demo": LoaderDemo,
   "skeleton-demo": SkeletonDemo,
   "card-demo": CardDemo,

@@ -1,0 +1,42 @@
+---
+title: Switch
+description: An on/off switch on Radix with a dithered track that eases between off and on.
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="switch" />
+
+<Playground name="switch" />
+
+## Installation
+
+<Install name="switch" />
+
+## Usage
+
+```tsx
+import { Switch } from "@/components/ui/switch";
+
+<label>
+  <Switch name="notifications" defaultChecked /> Notifications
+</label>
+
+<Switch aria-label="Dark mode" checked={dark} onCheckedChange={setDark} />
+```
+
+Switching on dithers the track full from the left while the thumb slides across. It wraps [Radix Switch](https://www.radix-ui.com/primitives/docs/components/switch), so it has the same API as shadcn's Switch: controlled (`checked` + `onCheckedChange`) or uncontrolled (`defaultChecked`), and `name`/`value`/`required` submit with forms.
+
+<Callout title="Renamed from Toggle">
+  Before November 2026 this component was called `toggle`. `toggle` is now a press button, matching shadcn.
+</Callout>
+
+## Accessibility and performance
+
+- Radix renders a `<button role="switch">` with `aria-checked`; Space and Enter toggle it. Name it with a `<label>` or `aria-label`.
+- The track canvas is `aria-hidden` and draws only while the fill eases. Under `prefers-reduced-motion: reduce` the fill and thumb snap.
+
+## Props
+
+<PropsTable name="switch" />

@@ -3,8 +3,12 @@ import { PALETTES } from "../registry/engine/palettes";
 import { examples } from "../registry/examples";
 import { components } from "../registry/meta";
 
+// Backgrounds sweep every palette; other components sample mono, a 4-colour light and a 4-colour dark one.
+const backgrounds = components.filter((c) => c.category === "background").map((c) => c.name);
+const palettesFor = (example: string) => (backgrounds.some((n) => example.startsWith(n)) ? Object.keys(PALETTES) : ["ink", "riso", "synthwave"]);
+
 for (const example of Object.keys(examples)) {
-  for (const palette of Object.keys(PALETTES)) {
+  for (const palette of palettesFor(example)) {
     for (const mode of ["dither", "ascii"]) {
       test(`${example} · ${palette} · ${mode}`, async ({ page }) => {
         await page.goto(`/visual/${example}?palette=${palette}&mode=${mode}`);

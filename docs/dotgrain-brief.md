@@ -42,7 +42,7 @@ No library treats dither and ASCII as a complete, coherent design system. Existi
 
 dotgrain is a library of React components where every visual is rendered as dither or ASCII by one shared, dependency-free WebGL2 engine. Components share tokens, so a single provider or one prop restyles an entire site: switch from 1-bit ink to Game Boy green, from dither to ASCII.
 
-- Components install straight into the user's codebase with the shadcn CLI (`npx shadcn@latest add @dotgrain/<name>`). Users own the code, with no runtime npm dependencies.
+- Components install straight into the user's codebase with the shadcn CLI (`npx shadcn@latest add @dotgrain/<name>`). Users own the code. The engine has no npm dependencies; components use the same primitives shadcn does (Radix, cmdk, vaul, sonner and friends).
 - A docs site lets people tune every component live with knobs. They copy the exact code, copy an AI-agent prompt, or open it in v0.
 - The library is accessible by default: real text stays real DOM text, canvases are decorative, and reduced motion is respected. It is fast by default: one GPU context, rendering at low resolution, paused when offscreen.
 - Most components are free under MIT. Premium blocks and full templates are sold as dotgrain Pro, installed through a token-gated private registry.
@@ -57,7 +57,7 @@ dotgrain is a library of React components where every visual is rendered as dith
 1. As a developer, I want to install a component with one `npx shadcn@latest add @dotgrain/<name>` command, so that it lands in my repo without manual copying.
 2. As a developer, I want to install by direct URL without configuring a namespace, so that I can try a component in seconds.
 3. As a developer, I want the shared engine to install automatically the first time I add any component, and only once, so that I never duplicate code.
-4. As a developer, I want zero new npm dependencies from dotgrain components, so that my bundle and lockfile stay clean.
+4. As a developer, I want dotgrain components to use only the primitives shadcn already uses, so that my bundle and lockfile stay familiar.
 5. As a developer, I want every component to work without a provider, using sensible defaults, so that I can drop one in anywhere.
 6. As a developer, I want to wrap my app in `DitherProvider` to set palette, pattern, cell size and mode once, so that every component matches.
 7. As a developer, I want to override any token on a single component through props, so that one section can look different.
@@ -251,7 +251,7 @@ Component behaviour decisions:
 
 ### Registry and distribution
 
-- `@dotgrain/engine` is a `registry:lib` item. Every component is a `registry:ui` item with `registryDependencies: ["@dotgrain/engine"]` and an empty `dependencies` list.
+- `@dotgrain/engine` is a `registry:lib` item. Every component is a `registry:ui` item with `registryDependencies: ["@dotgrain/engine"]` and a `dependencies` list limited to shadcn's own primitives.
 - Items carry `title`, a one-sentence `description` (reused for search, llms.txt and copy prompts), `categories` and `meta.modes`.
 - Three install forms are documented: namespaced, direct URL and GitHub. The namespace snippet maps `@dotgrain` to `https://dotgrain.space/r/{name}.json`.
 - Free items are v0-compatible: no `cssVars` or `envVars`.
