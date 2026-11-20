@@ -2,7 +2,7 @@
 
 import type { ComponentProps } from "react";
 import { Drawer as DrawerPrimitive } from "vaul";
-import { Grain, splitTokens, useEntered, useInk } from "@/lib/dotgrain/grain";
+import { Grain, Scrim, splitTokens, useEntered, useInk } from "@/lib/dotgrain/grain";
 import type { DitherTokens } from "@/lib/dotgrain/types";
 
 type Tokens = Partial<DitherTokens>;
@@ -14,13 +14,13 @@ export const DrawerClose = DrawerPrimitive.Close;
 
 export type DrawerOverlayProps = Omit<ComponentProps<typeof DrawerPrimitive.Overlay>, keyof DitherTokens> & Tokens;
 
-/** A screen-door scrim: an ordered-dither level that eases in over the page. */
+/** A dimmed, blurred page under a faint grey screen-door dither, easing in. */
 export function DrawerOverlay({ style, ...props }: DrawerOverlayProps) {
   const [tokens, rest] = splitTokens(props);
   const entered = useEntered();
   return (
     <DrawerPrimitive.Overlay {...rest} style={{ position: "fixed", inset: 0, zIndex: 50, ...style }}>
-      <Grain {...tokens} mode="dither" field="frame" params={{ border: 0, fill: entered ? 0.35 : 0 }} style={{ opacity: 0.9 }} />
+      <Scrim {...tokens} entered={entered} />
     </DrawerPrimitive.Overlay>
   );
 }

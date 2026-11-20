@@ -3,7 +3,7 @@
 import { Command as CommandPrimitive } from "cmdk";
 import { useState, type ComponentProps } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
-import { Grain, splitTokens, useDataAttr, useInk } from "@/lib/dotgrain/grain";
+import { Grain, splitTokens, useDataAttr, useInk, useWash } from "@/lib/dotgrain/grain";
 import { DitherProvider } from "@/lib/dotgrain/provider";
 import type { DitherTokens } from "@/lib/dotgrain/types";
 
@@ -82,19 +82,20 @@ export const CommandSeparator = ({ style, ...props }: ComponentProps<typeof Comm
   </CommandPrimitive.Separator>
 );
 
-/** An option; the selected one (arrow keys or pointer) gets a solid chip with a dithered tail. */
+/** An option; the selected one (arrow keys or pointer) sits on a wash that is solid behind its label, then dithers out. */
 export function CommandItem({ children, style, ref, ...props }: ComponentProps<typeof CommandPrimitive.Item>) {
   const { bg, fg } = useInk({});
   const [selected, own] = useDataAttr<HTMLDivElement>("data-selected", ref);
   const on = selected === "true";
+  const [label, wash] = useWash(on);
   return (
     <CommandPrimitive.Item
       {...props}
       ref={own}
       style={{ position: "relative", display: "flex", alignItems: "center", gap: 8, padding: "6px 28px 6px 8px", cursor: "pointer", userSelect: "none", opacity: props.disabled ? 0.5 : undefined, ...style }}
     >
-      {on && <Grain params={{ value: 0.9, softness: 0.35 }} />}
-      <span style={{ position: "relative", display: "flex", flex: 1, alignItems: "center", gap: 8, padding: "0 0.25em", background: on ? fg : "transparent", color: on ? bg : fg }}>{children}</span>
+      {on && <Grain mode="dither" params={wash} />}
+      <span ref={label} style={{ position: "relative", display: "flex", flex: 1, alignItems: "center", gap: 8, padding: "0 0.25em", color: on ? bg : fg }}>{children}</span>
     </CommandPrimitive.Item>
   );
 }

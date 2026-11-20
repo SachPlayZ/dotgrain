@@ -2,7 +2,7 @@
 
 import { DropdownMenu as Menu } from "radix-ui";
 import { useState, type ComponentProps, type CSSProperties, type FocusEvent } from "react";
-import { Grain, splitTokens, useEntered, useInk } from "@/lib/dotgrain/grain";
+import { Grain, splitTokens, useEntered, useInk, useWash } from "@/lib/dotgrain/grain";
 import { DitherProvider } from "@/lib/dotgrain/provider";
 import type { DitherTokens } from "@/lib/dotgrain/types";
 
@@ -50,60 +50,62 @@ export function DropdownMenuSubContent({ children, style, ...props }: ComponentP
 function useHighlight<E>(props: { onFocus?: (e: FocusEvent<E>) => void; onBlur?: (e: FocusEvent<E>) => void; disabled?: boolean }, inset?: boolean) {
   const { bg, fg } = useInk({});
   const [on, setOn] = useState(false);
-  return {
+  const [label, params] = useWash(on);
+  return [{
     on,
-    chip: { position: "relative", display: "flex", flex: 1, alignItems: "center", padding: "0 0.25em", background: on ? fg : "transparent", color: on ? bg : fg } as CSSProperties,
+    // Solid behind the label, dithering out after it; the label reads in the background colour on top.
+    wash: <Grain mode="dither" params={params} />,
+    chip: { position: "relative", display: "flex", flex: 1, alignItems: "center", padding: "0 0.25em", color: on ? bg : fg } as CSSProperties,
+    mark: { ...mark, color: on ? bg : fg },
     handlers: { onFocus: (e: FocusEvent<E>) => (setOn(true), props.onFocus?.(e)), onBlur: (e: FocusEvent<E>) => (setOn(false), props.onBlur?.(e)) },
     style: { position: "relative", display: "flex", alignItems: "center", gap: 8, padding: `6px 28px 6px ${inset ? 28 : 8}px`, outline: "none", cursor: "pointer", userSelect: "none", opacity: props.disabled ? 0.5 : undefined } as CSSProperties,
-  };
+  }, label] as const;
 }
 
-// Solid under the label chip, dithering out over the last stretch of the row.
-const wash = <Grain params={{ value: 0.9, softness: 0.35 }} />;
 const mark: CSSProperties = { position: "absolute", left: 10 };
 
 export type DropdownMenuItemProps = ComponentProps<typeof Menu.Item> & { inset?: boolean; variant?: "default" | "destructive" };
 
-/** An action; the highlighted one gets a dithered wash behind a solid label chip. Destructive items read ✖. */
+/** An action; the highlighted one sits on a dithered wash that fades out after its label. Destructive items read ✖. */
 export function DropdownMenuItem({ inset, variant = "default", children, style, ...props }: DropdownMenuItemProps) {
-  const h = useHighlight(props, inset || variant === "destructive");
+  const [h, label] = useHighlight(props, inset || variant === "destructive");
   return (
     <Menu.Item {...props} {...h.handlers} style={{ ...h.style, ...style }}>
-      {h.on && wash}
-      {variant === "destructive" && <span aria-hidden="true" style={mark}>✖</span>}
-      <span style={h.chip}>{children}</span>
+      {h.on && h.wash}
+      {variant === "destructive" && <span aria-hidden="true" style={h.mark}>✖</span>}
+      <span ref={label} style={h.chip}>{children}</span>
     </Menu.Item>
   );
 }
 
 export function DropdownMenuCheckboxItem({ children, style, ...props }: ComponentProps<typeof Menu.CheckboxItem>) {
-  const h = useHighlight(props, true);
+  const [h, label] = useHighlight(props, true);
   return (
     <Menu.CheckboxItem {...props} {...h.handlers} style={{ ...h.style, ...style }}>
-      {h.on && wash}
-      <Menu.ItemIndicator style={mark}>✓</Menu.ItemIndicator>
-      <span style={h.chip}>{children}</span>
+      {h.on && h.wash}
+      <Menu.ItemIndicator style={h.mark}>✓</Menu.ItemIndicator>
+      <span ref={label} style={h.chip}>{children}</span>
     </Menu.CheckboxItem>
   );
 }
 
 export function DropdownMenuRadioItem({ children, style, ...props }: ComponentProps<typeof Menu.RadioItem>) {
-  const h = useHighlight(props, true);
+  const [h, label] = useHighlight(props, true);
   return (
     <Menu.RadioItem {...props} {...h.handlers} style={{ ...h.style, ...style }}>
-      {h.on && wash}
-      <Menu.ItemIndicator style={mark}>●</Menu.ItemIndicator>
-      <span style={h.chip}>{children}</span>
+      {h.on && h.wash}
+      <Menu.ItemIndicator style={h.mark}>●</Menu.ItemIndicator>
+      <span ref={label} style={h.chip}>{children}</span>
     </Menu.RadioItem>
   );
 }
 
 export function DropdownMenuSubTrigger({ inset, children, style, ...props }: ComponentProps<typeof Menu.SubTrigger> & { inset?: boolean }) {
-  const h = useHighlight(props, inset);
+  const [h, label] = useHighlight(props, inset);
   return (
     <Menu.SubTrigger {...props} {...h.handlers} style={{ ...h.style, ...style }}>
-      {h.on && wash}
-      <span style={h.chip}>
+      {h.on && h.wash}
+      <span ref={label} style={h.chip}>
         {children}
         <span aria-hidden="true" style={{ marginLeft: "auto", paddingLeft: 8 }}>›</span>
       </span>

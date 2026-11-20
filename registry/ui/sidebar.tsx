@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, use, useEffect, useId, useState, type ComponentProps } from "react";
-import { Grain, splitTokens, useInk } from "@/lib/dotgrain/grain";
+import { Grain, splitTokens, useInk, useWash } from "@/lib/dotgrain/grain";
 import { DitherProvider } from "@/lib/dotgrain/provider";
 import type { DitherTokens } from "@/lib/dotgrain/types";
 
@@ -102,11 +102,12 @@ export const SidebarMenuItem = ({ style, ...props }: ComponentProps<"li">) => <l
 
 export type SidebarMenuButtonProps = Omit<ComponentProps<"button"> & ComponentProps<"a">, keyof DitherTokens> & Partial<DitherTokens> & { isActive?: boolean; href?: string };
 
-/** A nav entry: a link when given `href`, else a button. Active is dithered full; hover hints. */
+/** A nav entry: a link when given `href`, else a button. Active sits on a wash fitted to its label; hover marks the edge. */
 export function SidebarMenuButton({ isActive, href, children, style, onPointerEnter, onPointerLeave, ...props }: SidebarMenuButtonProps) {
   const [tokens, rest] = splitTokens(props);
   const { bg, fg } = useInk(tokens);
   const [hover, setHover] = useState(false);
+  const [label, wash] = useWash(!!isActive);
   // Both tags take the same props here; typing as "a" avoids a ref-union mismatch.
   const Tag = (href ? "a" : "button") as "a";
   return (
@@ -118,8 +119,10 @@ export function SidebarMenuButton({ isActive, href, children, style, onPointerEn
       onPointerLeave={(e: React.PointerEvent<never>) => (setHover(false), onPointerLeave?.(e))}
       style={{ position: "relative", display: "flex", width: "100%", alignItems: "center", gap: 8, padding: "6px 28px 6px 8px", border: 0, background: bg, color: fg, font: "inherit", fontSize: 14, textAlign: "left", textDecoration: "none", cursor: "pointer", ...style }}
     >
-      <Grain {...tokens} params={{ value: isActive ? 0.9 : hover ? 0.2 : -0.5, softness: 0.35 }} />
-      <span style={{ position: "relative", display: "flex", flex: 1, alignItems: "center", gap: 8, padding: "0 0.25em", background: isActive ? fg : bg, color: isActive ? bg : fg }}>{children}</span>
+      <Grain {...tokens} mode="dither" params={wash} />
+      {/* Hover: a dithered tick on the leading edge, so the label never sits on partial dither. */}
+      {hover && !isActive && <Grain {...tokens} params={{ value: 1.6, softness: 0.5 }} style={{ right: "auto", width: 3 }} />}
+      <span ref={label} style={{ position: "relative", display: "flex", flex: 1, alignItems: "center", gap: 8, padding: "0 0.25em", color: isActive ? bg : fg }}>{children}</span>
     </Tag>
   );
 }
