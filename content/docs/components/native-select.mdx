@@ -1,0 +1,37 @@
+---
+title: Native Select
+description: "A native select on the palette with an ASCII chevron and a dithered focus underline."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="native-select" />
+
+<Playground name="native-select" />
+
+## Installation
+
+<Install name="native-select" />
+
+## Usage
+
+```tsx
+import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
+
+<NativeSelect aria-label="Fruit">
+  <NativeSelectOption value="apple">Apple</NativeSelectOption>
+  <NativeSelectOption value="pear">Pear</NativeSelectOption>
+</NativeSelect>
+```
+
+Use it where the platform picker matters, e.g. on mobile; use [Select](/docs/components/select) for a fully styled list.
+
+## Accessibility
+
+- A real `<select>`: the OS picker, keyboard and forms are native.
+- The chevron and underline are decorative.
+
+## Props
+
+<PropsTable name="native-select" />

@@ -49,7 +49,7 @@ float vnoise(vec3 p) {
   return mix(mix(a, b, u.y), mix(d, e, u.y), u.z);
 }
 float field(int kind, vec2 uv, float aspect, float t, vec4 params) {
-  if (kind == 1) return clamp(1.0 - length((uv - params.xy) * vec2(aspect, 1.0)) / params.z, 0.0, 1.0);
+  if (kind == 1) return params.z <= 0.0 ? 0.0 : clamp(1.0 - length((uv - params.xy) * vec2(aspect, 1.0)) / params.z, 0.0, 1.0);
   if (kind == 2) {
     float a = radians(params.x);
     return clamp(dot(uv - 0.5, vec2(cos(a), sin(a))) + 0.5, 0.0, 1.0);
@@ -117,7 +117,8 @@ const fract = (x: number) => x - Math.floor(x);
 
 /** JS twin of the GLSL `field`: value 0–1 at uv for the given time. */
 export function field(name: FieldName, u: number, v: number, aspect: number, t: number, params: number[], size: [number, number] = [1, 1]): number {
-  if (name === "radial") return clamp01(1 - Math.hypot((u - params[0]) * aspect, v - params[1]) / params[2]);
+  // Zero radius is empty (not NaN at the centre), so a radial can ease in from nothing.
+  if (name === "radial") return params[2] <= 0 ? 0 : clamp01(1 - Math.hypot((u - params[0]) * aspect, v - params[1]) / params[2]);
   if (name === "linear") {
     const a = (params[0] * Math.PI) / 180;
     return clamp01((u - 0.5) * Math.cos(a) + (v - 0.5) * Math.sin(a) + 0.5);

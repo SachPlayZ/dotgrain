@@ -21,7 +21,7 @@ export interface ComponentMeta {
   title: string;
   /** One plain sentence; reused for search, llms.txt and the copy prompt. */
   description: string;
-  category: "background" | "media" | "feedback" | "text" | "control" | "surface" | "data" | "block";
+  category: "background" | "media" | "feedback" | "text" | "control" | "form" | "overlay" | "navigation" | "surface" | "data" | "block";
   modes: Mode[];
   tier: "free";
   files: string[];
@@ -30,8 +30,9 @@ export interface ComponentMeta {
   /** npm packages it imports; only shadcn's own primitives (radix-ui, cmdk, vaul, sonner…). */
   dependencies?: string[];
   props: PropMeta[];
-  /** Props the docs preview starts from; the code tab and copy prompt print them. */
-  example: { props: Record<string, ExampleValue>; children?: string };
+  /** Props the docs preview starts from; the code tab and copy prompt print them. Compound components
+   *  (Select, RadioGroup…) preview their `<name>-demo` example under the knob tokens and print `code` instead. */
+  example: { props: Record<string, ExampleValue>; children?: string; code?: string };
   /** Docs preview knobs: shared token names or component-prop knobs. */
   knobs: (keyof DitherTokens | KnobMeta)[];
 }

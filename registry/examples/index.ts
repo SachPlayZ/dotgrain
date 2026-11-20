@@ -3,6 +3,19 @@ import AsciiRainDemo from "./ascii-rain-demo";
 import ButtonDemo from "./button-demo";
 import ToggleDemo from "./toggle-demo";
 import SwitchDemo from "./switch-demo";
+import InputDemo from "./input-demo";
+import TextareaDemo from "./textarea-demo";
+import LabelDemo from "./label-demo";
+import NativeSelectDemo from "./native-select-demo";
+import CheckboxDemo from "./checkbox-demo";
+import RadioGroupDemo from "./radio-group-demo";
+import SliderDemo from "./slider-demo";
+import ToggleGroupDemo from "./toggle-group-demo";
+import SelectDemo from "./select-demo";
+import InputOTPDemo from "./input-otp-demo";
+import InputGroupDemo from "./input-group-demo";
+import ButtonGroupDemo from "./button-group-demo";
+import FieldDemo from "./field-demo";
 import LoaderDemo from "./loader-demo";
 import SkeletonDemo from "./skeleton-demo";
 import BackdropDemo from "./backdrop-demo";
@@ -41,6 +54,19 @@ export const examples: Record<string, ComponentType> = {
   "button-demo": ButtonDemo,
   "toggle-demo": ToggleDemo,
   "switch-demo": SwitchDemo,
+  "input-demo": InputDemo,
+  "textarea-demo": TextareaDemo,
+  "label-demo": LabelDemo,
+  "native-select-demo": NativeSelectDemo,
+  "checkbox-demo": CheckboxDemo,
+  "radio-group-demo": RadioGroupDemo,
+  "slider-demo": SliderDemo,
+  "toggle-group-demo": ToggleGroupDemo,
+  "select-demo": SelectDemo,
+  "input-otp-demo": InputOTPDemo,
+  "input-group-demo": InputGroupDemo,
+  "button-group-demo": ButtonGroupDemo,
+  "field-demo": FieldDemo,
   "loader-demo": LoaderDemo,
   "skeleton-demo": SkeletonDemo,
   "card-demo": CardDemo,

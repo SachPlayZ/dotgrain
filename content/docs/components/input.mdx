@@ -1,0 +1,34 @@
+---
+title: Input
+description: "A native text input on the palette with a dithered underline that fills while focused."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="input" />
+
+<Playground name="input" />
+
+## Installation
+
+<Install name="input" />
+
+## Usage
+
+```tsx
+import { Input } from "@/components/ui/input";
+
+<Input type="email" placeholder="you@example.com" aria-label="Email" />
+```
+
+Every native input attribute and `ref` go to the `<input>`; `className` and `style` go to the outer box. Focusing dithers the underline full.
+
+## Accessibility
+
+- A real `<input>`: typing, autofill, validation and forms are native. Name it with a `<label>` or `aria-label`.
+- The dithered underline is the focus indicator and the canvas is `aria-hidden`.
+
+## Props
+
+<PropsTable name="input" />

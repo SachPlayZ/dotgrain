@@ -1,0 +1,38 @@
+---
+title: Radio Group
+description: "Radix radio buttons whose centres dither outward when selected."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="radio-group" />
+
+<Playground name="radio-group" />
+
+## Installation
+
+<Install name="radio-group" />
+
+## Usage
+
+```tsx
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+
+<RadioGroup defaultValue="comfortable">
+  <Label><RadioGroupItem value="default" /> Default</Label>
+  <Label><RadioGroupItem value="comfortable" /> Comfortable</Label>
+</RadioGroup>
+```
+
+Wraps [Radix Radio Group](https://www.radix-ui.com/primitives/docs/components/radio-group).
+
+## Accessibility
+
+- Arrow keys move the selection, Tab enters and leaves the group; items expose `role="radio"` and `aria-checked`.
+- The dithered dot is `aria-hidden`.
+
+## Props
+
+<PropsTable name="radio-group" />

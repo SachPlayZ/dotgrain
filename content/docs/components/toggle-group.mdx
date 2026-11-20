@@ -1,0 +1,37 @@
+---
+title: Toggle Group
+description: "A Radix group of press buttons where pressed items dither full."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="toggle-group" />
+
+<Playground name="toggle-group" />
+
+## Installation
+
+<Install name="toggle-group" />
+
+## Usage
+
+```tsx
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+
+<ToggleGroup type="multiple" defaultValue={["bold"]}>
+  <ToggleGroupItem value="bold">Bold</ToggleGroupItem>
+  <ToggleGroupItem value="italic">Italic</ToggleGroupItem>
+</ToggleGroup>
+```
+
+Wraps [Radix Toggle Group](https://www.radix-ui.com/primitives/docs/components/toggle-group). Items look like [Toggle](/docs/components/toggle).
+
+## Accessibility
+
+- Arrow keys move between items; each item has `aria-pressed` (multiple) or `role="radio"` (single).
+- Labels are real text on solid chips.
+
+## Props
+
+<PropsTable name="toggle-group" />

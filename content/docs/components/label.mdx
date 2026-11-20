@@ -1,0 +1,33 @@
+---
+title: Label
+description: "An accessible Radix label in plain DOM text that pairs with any dotgrain control."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="label" />
+
+<Playground name="label" />
+
+## Installation
+
+<Install name="label" />
+
+## Usage
+
+```tsx
+import { Label } from "@/components/ui/label";
+
+<Label htmlFor="email">Email</Label>
+```
+
+Wraps [Radix Label](https://www.radix-ui.com/primitives/docs/components/label). It has no canvas, so it pairs with any control.
+
+## Accessibility
+
+- A native `<label>`: clicking it focuses or toggles its control.
+
+## Props
+
+<PropsTable name="label" />
