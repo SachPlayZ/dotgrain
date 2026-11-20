@@ -1,0 +1,37 @@
+---
+title: Avatar
+description: "A round Radix avatar whose image is dithered once it loads, with dithered initials as the fallback."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="avatar" />
+
+<Playground name="avatar" />
+
+## Installation
+
+<Install name="avatar" />
+
+## Usage
+
+```tsx
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
+<Avatar>
+  <AvatarImage src="/me.png" alt="Ada" />
+  <AvatarFallback>AL</AvatarFallback>
+</Avatar>
+```
+
+Size it with `style` or `className` on `Avatar` (32px by default). If the image's pixels can't be read (CORS), the plain image shows instead.
+
+## Accessibility
+
+- The real `img` stays in the DOM with its `alt`; the canvas is hidden.
+- The fallback's initials are real text.
+
+## Props
+
+<PropsTable name="avatar" />

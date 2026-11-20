@@ -26,6 +26,18 @@ import MenubarDemo from "./menubar-demo";
 import CommandDemo from "./command-demo";
 import ComboboxDemo from "./combobox-demo";
 import SidebarDemo from "./sidebar-demo";
+import BadgeDemo from "./badge-demo";
+import AlertDemo from "./alert-demo";
+import AvatarDemo from "./avatar-demo";
+import SeparatorDemo from "./separator-demo";
+import KbdDemo from "./kbd-demo";
+import ItemDemo from "./item-demo";
+import EmptyDemo from "./empty-demo";
+import SpinnerDemo from "./spinner-demo";
+import AspectRatioDemo from "./aspect-ratio-demo";
+import ProgressDemo from "./progress-demo";
+import TableDemo from "./table-demo";
+import ScrollAreaDemo from "./scroll-area-demo";
 import DialogDemo from "./dialog-demo";
 import SonnerDemo from "./sonner-demo";
 import ContextMenuDemo from "./context-menu-demo";
@@ -107,6 +119,18 @@ export const examples: Record<string, ComponentType> = {
   "command-demo": CommandDemo,
   "combobox-demo": ComboboxDemo,
   "sidebar-demo": SidebarDemo,
+  "badge-demo": BadgeDemo,
+  "alert-demo": AlertDemo,
+  "avatar-demo": AvatarDemo,
+  "separator-demo": SeparatorDemo,
+  "kbd-demo": KbdDemo,
+  "item-demo": ItemDemo,
+  "empty-demo": EmptyDemo,
+  "spinner-demo": SpinnerDemo,
+  "aspect-ratio-demo": AspectRatioDemo,
+  "progress-demo": ProgressDemo,
+  "table-demo": TableDemo,
+  "scroll-area-demo": ScrollAreaDemo,
   "loader-demo": LoaderDemo,
   "skeleton-demo": SkeletonDemo,
   "card-demo": CardDemo,

@@ -1,0 +1,41 @@
+---
+title: Table
+description: "A plain table whose header cells sit on a dithered rule."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="table" />
+
+<Playground name="table" />
+
+## Installation
+
+<Install name="table" />
+
+## Usage
+
+```tsx
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+
+<Table>
+  <TableHeader>
+    <TableRow><TableHead>Invoice</TableHead><TableHead>Amount</TableHead></TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow><TableCell>INV001</TableCell><TableCell>$250.00</TableCell></TableRow>
+  </TableBody>
+</Table>
+```
+
+Only header cells get a canvas; body rows use a dotted rule, so long tables stay cheap. The table scrolls sideways in its wrapper when it is too wide.
+
+## Accessibility
+
+- Native `table` semantics throughout; header canvases are hidden.
+- Add a `TableCaption` to name the table.
+
+## Props
+
+<PropsTable name="table" />

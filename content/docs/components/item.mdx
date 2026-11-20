@@ -1,0 +1,40 @@
+---
+title: Item
+description: "A row of media, title, description and actions, framed or on a faint dither."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="item" />
+
+<Playground name="item" />
+
+## Installation
+
+<Install name="item" />
+
+## Usage
+
+```tsx
+import { Item, ItemActions, ItemContent, ItemDescription, ItemTitle } from "@/components/ui/item";
+
+<Item variant="outline">
+  <ItemContent>
+    <ItemTitle>Security alert</ItemTitle>
+    <ItemDescription>New sign-in from an unknown device.</ItemDescription>
+  </ItemContent>
+  <ItemActions>…</ItemActions>
+</Item>
+```
+
+Parts: `ItemGroup`, `ItemSeparator`, `ItemMedia` (`default`, `icon` or `image`), `ItemContent`, `ItemTitle`, `ItemDescription`, `ItemActions`, `ItemHeader`, `ItemFooter`. shadcn's `asChild` is left out; wrap the Item in a link instead.
+
+## Accessibility
+
+- `ItemGroup` is a `list`; give each Item `role="listitem"` when you use one.
+- Dither canvases are hidden from assistive tech.
+
+## Props
+
+<PropsTable name="item" />
