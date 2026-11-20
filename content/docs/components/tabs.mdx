@@ -1,0 +1,41 @@
+---
+title: Tabs
+description: "Radix tabs over a dithered rule; the active tab is a solid dithered chip."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="tabs" />
+
+<Playground name="tabs" />
+
+## Installation
+
+<Install name="tabs" />
+
+## Usage
+
+```tsx
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+<Tabs defaultValue="a">
+  <TabsList>
+    <TabsTrigger value="a">Account</TabsTrigger>
+    <TabsTrigger value="b">Password</TabsTrigger>
+  </TabsList>
+  <TabsContent value="a">Account settings.</TabsContent>
+  <TabsContent value="b">Password settings.</TabsContent>
+</Tabs>
+```
+
+Wraps [Radix Tabs](https://www.radix-ui.com/primitives/docs/components/tabs). The list sits on a 2px dithered rule; the active trigger fills solid.
+
+## Accessibility
+
+- Arrow keys move between tabs; Home and End jump to the ends.
+- Triggers get `role="tab"` and `aria-selected`; panels are labelled by their tab.
+
+## Props
+
+<PropsTable name="tabs" />

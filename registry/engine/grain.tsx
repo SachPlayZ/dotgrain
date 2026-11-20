@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useState, type CSSProperties, type Ref } from "react";
 import { paletteColors } from "./palettes";
 import { useColorScheme, useDitherTokens } from "./provider";
 import { Quantize } from "./quantize";
@@ -47,4 +47,32 @@ export function useEntered(): boolean {
     return () => cancelAnimationFrame(id);
   }, []);
   return entered;
+}
+
+function assignRef<T>(ref: Ref<T> | undefined, node: T | null) {
+  if (typeof ref === "function") ref(node);
+  else if (ref) ref.current = node;
+}
+
+/**
+ * Tracks a data attribute that a primitive sets on its own element (Radix `data-state`, cmdk `data-selected`),
+ * so a Grain can follow it. Returns the value and a callback ref that also forwards to `forward`.
+ */
+export function useDataAttr<T extends HTMLElement>(name: string, forward?: Ref<T>): [string | null, (el: T | null) => () => void] {
+  const [value, setValue] = useState<string | null>(null);
+  const ref = useCallback(
+    (el: T | null) => {
+      const pass = (node: T | null) => assignRef(forward, node);
+      pass(el);
+      if (!el) return () => {};
+      const read = () => setValue(el.getAttribute(name));
+      read();
+      const observer = new MutationObserver(read);
+      observer.observe(el, { attributes: true, attributeFilter: [name] });
+      // React 19 runs this instead of calling the ref with null, so clear the forwarded ref here too.
+      return () => (observer.disconnect(), pass(null));
+    },
+    [name, forward],
+  );
+  return [value, ref];
 }

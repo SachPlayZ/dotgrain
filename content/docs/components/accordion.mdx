@@ -1,0 +1,39 @@
+---
+title: Accordion
+description: "Radix accordion with glyph chevrons and dithered rules between items."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="accordion" />
+
+<Playground name="accordion" />
+
+## Installation
+
+<Install name="accordion" />
+
+## Usage
+
+```tsx
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="a">
+    <AccordionTrigger>Is it accessible?</AccordionTrigger>
+    <AccordionContent>Yes. It follows the WAI-ARIA pattern.</AccordionContent>
+  </AccordionItem>
+</Accordion>
+```
+
+Wraps [Radix Accordion](https://www.radix-ui.com/primitives/docs/components/accordion). Chevrons are ▸ / ▾ glyphs in the DOM; each item ends on a dithered rule.
+
+## Accessibility
+
+- Triggers are buttons inside headings, with `aria-expanded` and `aria-controls`.
+- Arrow keys move between triggers.
+
+## Props
+
+<PropsTable name="accordion" />

@@ -1,0 +1,40 @@
+---
+title: Pagination
+description: "Page links where the current page is a solid dithered chip."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="pagination" />
+
+<Playground name="pagination" />
+
+## Installation
+
+<Install name="pagination" />
+
+## Usage
+
+```tsx
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+
+<Pagination>
+  <PaginationContent>
+    <PaginationItem><PaginationPrevious href="#" /></PaginationItem>
+    <PaginationItem><PaginationLink href="#" isActive>1</PaginationLink></PaginationItem>
+    <PaginationItem><PaginationNext href="#" /></PaginationItem>
+  </PaginationContent>
+</Pagination>
+```
+
+Plain links in a `nav`. The current page is a solid dithered chip; hover hints with a light wash.
+
+## Accessibility
+
+- The `nav` is labelled "pagination"; the active link has `aria-current="page"`.
+- Previous and Next carry aria-labels; the ellipsis is hidden from assistive tech.
+
+## Props
+
+<PropsTable name="pagination" />

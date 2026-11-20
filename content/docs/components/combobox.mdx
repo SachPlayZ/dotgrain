@@ -1,0 +1,37 @@
+---
+title: Combobox
+description: "A searchable select: a Popover holding a Command list, as in shadcn's recipe."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="combobox" />
+
+<Playground name="combobox" />
+
+## Installation
+
+<Install name="combobox" />
+
+## Usage
+
+```tsx
+import { Combobox } from "@/components/ui/combobox";
+
+<Combobox
+  aria-label="Framework"
+  options={[{ value: "next", label: "Next.js" }, { value: "remix", label: "Remix" }]}
+/>
+```
+
+shadcn ships combobox as a recipe; here it is one component built from Popover and Command, which install alongside. Copy the file to change the trigger or item layout.
+
+## Accessibility
+
+- The trigger has `role="combobox"` and `aria-expanded`; name it with `aria-label` or a label.
+- Typing filters; arrows move; Enter selects and closes; Esc closes and returns focus.
+
+## Props
+
+<PropsTable name="combobox" />

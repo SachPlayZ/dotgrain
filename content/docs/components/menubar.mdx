@@ -1,0 +1,41 @@
+---
+title: Menubar
+description: "A Radix desktop-style menubar; menus open in dithered frames."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="menubar" />
+
+<Playground name="menubar" />
+
+## Installation
+
+<Install name="menubar" />
+
+## Usage
+
+```tsx
+import { Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } from "@/components/ui/menubar";
+
+<Menubar>
+  <MenubarMenu>
+    <MenubarTrigger>File</MenubarTrigger>
+    <MenubarContent>
+      <MenubarItem>New</MenubarItem>
+    </MenubarContent>
+  </MenubarMenu>
+</Menubar>
+```
+
+Wraps [Radix Menubar](https://www.radix-ui.com/primitives/docs/components/menubar) with the same item parts as Dropdown Menu: checkbox and radio items, submenus, shortcuts, separators.
+
+## Accessibility
+
+- Left and right arrows move between menus, even while one is open.
+- Items get menu roles from Radix; focus returns to the trigger on Esc.
+
+## Props
+
+<PropsTable name="menubar" />

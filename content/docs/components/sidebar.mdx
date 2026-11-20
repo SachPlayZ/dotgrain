@@ -1,0 +1,43 @@
+---
+title: Sidebar
+description: "A collapsible app sidebar edged by a dithered rail, toggled with ⌘B."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="sidebar" />
+
+<Playground name="sidebar" />
+
+## Installation
+
+<Install name="sidebar" />
+
+## Usage
+
+```tsx
+import { Sidebar, SidebarContent, SidebarInset, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+
+<SidebarProvider>
+  <Sidebar>
+    <SidebarContent>
+      <SidebarMenu>
+        <SidebarMenuItem><SidebarMenuButton isActive>Home</SidebarMenuButton></SidebarMenuItem>
+      </SidebarMenu>
+    </SidebarContent>
+  </Sidebar>
+  <SidebarInset><SidebarTrigger /></SidebarInset>
+</SidebarProvider>
+```
+
+A focused subset of shadcn's sidebar: provider with ⌘B, offcanvas collapse, groups, menu buttons and badges. Not included: rail, menu actions, sub-menus, skeletons and the mobile sheet; compose those from Sheet and Collapsible.
+
+## Accessibility
+
+- `SidebarTrigger` has `aria-expanded` and `aria-controls`; the closed sidebar is `inert`.
+- Active menu buttons get `aria-current="page"`.
+
+## Props
+
+<PropsTable name="sidebar" />

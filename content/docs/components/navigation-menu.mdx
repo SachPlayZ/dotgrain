@@ -1,0 +1,43 @@
+---
+title: Navigation Menu
+description: "A Radix site navigation whose dropdown panel sits in a dithered frame."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="navigation-menu" />
+
+<Playground name="navigation-menu" />
+
+## Installation
+
+<Install name="navigation-menu" />
+
+## Usage
+
+```tsx
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
+
+<NavigationMenu>
+  <NavigationMenuList>
+    <NavigationMenuItem>
+      <NavigationMenuTrigger>Components</NavigationMenuTrigger>
+      <NavigationMenuContent>
+        <NavigationMenuLink href="/docs">Docs</NavigationMenuLink>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+  </NavigationMenuList>
+</NavigationMenu>
+```
+
+Wraps [Radix Navigation Menu](https://www.radix-ui.com/primitives/docs/components/navigation-menu). Content opens in a shared viewport with a dithered frame; pass `viewport={false}` to render each panel inline. Use `navigationMenuTriggerStyle()` to style a plain link like a trigger.
+
+## Accessibility
+
+- Arrow keys move along the list; Enter or Space opens a panel; Esc closes it.
+- Triggers get `aria-expanded`; links can take `active` for `aria-current`.
+
+## Props
+
+<PropsTable name="navigation-menu" />
