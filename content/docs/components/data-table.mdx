@@ -1,0 +1,39 @@
+---
+title: Data Table
+description: "A sortable, filterable, selectable and paged table built on the dotgrain Table, without TanStack."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="data-table" />
+
+<Playground name="data-table" />
+
+## Installation
+
+<Install name="data-table" />
+
+## Usage
+
+```tsx
+import { DataTable, type DataTableColumn } from "@/components/ui/data-table";
+
+const columns: DataTableColumn<Payment>[] = [
+  { key: "email", header: "Email", sortable: true },
+  { key: "amount", header: "Amount", sortable: true, align: "right" },
+];
+
+<DataTable label="Payments" columns={columns} data={payments} rowId={(r) => r.id} filterKey="email" selectable />
+```
+
+shadcn's data table is a recipe on TanStack Table, which dotgrain doesn't depend on. This component covers the recipe's features: sorting, one filter, row selection and pagination. For column visibility, server data or virtualisation, use TanStack Table with the [Table](/docs/components/table) parts directly.
+
+## Accessibility
+
+- Sorted headers carry `aria-sort`; sort controls are real buttons.
+- The page counter is a polite live region; checkboxes are labelled "Select row" and "Select page".
+
+## Props
+
+<PropsTable name="data-table" />

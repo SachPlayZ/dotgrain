@@ -1544,6 +1544,169 @@
       }
     },
     {
+      "name": "calendar",
+      "type": "registry:ui",
+      "title": "Calendar",
+      "description": "A react-day-picker calendar where selected days fill with dither and range middles go halftone.",
+      "categories": [
+        "form"
+      ],
+      "registryDependencies": [
+        "https://dotgrain.space/r/engine.json"
+      ],
+      "dependencies": [
+        "react-day-picker"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/calendar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "modes": [
+          "dither",
+          "ascii"
+        ]
+      }
+    },
+    {
+      "name": "date-picker",
+      "type": "registry:ui",
+      "title": "Date Picker",
+      "description": "shadcn's date-picker recipe as one component: a button that opens a dithered Calendar in a Popover.",
+      "categories": [
+        "form"
+      ],
+      "registryDependencies": [
+        "https://dotgrain.space/r/engine.json",
+        "https://dotgrain.space/r/popover.json",
+        "https://dotgrain.space/r/calendar.json"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/ui/date-picker.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "modes": [
+          "dither",
+          "ascii"
+        ]
+      }
+    },
+    {
+      "name": "carousel",
+      "type": "registry:ui",
+      "title": "Carousel",
+      "description": "An Embla carousel whose dithered rule fills as you scroll, with dithered previous and next buttons.",
+      "categories": [
+        "media"
+      ],
+      "registryDependencies": [
+        "https://dotgrain.space/r/engine.json",
+        "https://dotgrain.space/r/button.json"
+      ],
+      "dependencies": [
+        "embla-carousel-react"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/carousel.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "modes": [
+          "dither",
+          "ascii"
+        ]
+      }
+    },
+    {
+      "name": "resizable",
+      "type": "registry:ui",
+      "title": "Resizable",
+      "description": "Resizable panel groups split by dithered handles that thicken while dragged.",
+      "categories": [
+        "surface"
+      ],
+      "registryDependencies": [
+        "https://dotgrain.space/r/engine.json"
+      ],
+      "dependencies": [
+        "react-resizable-panels"
+      ],
+      "files": [
+        {
+          "path": "registry/ui/resizable.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "modes": [
+          "dither",
+          "ascii"
+        ]
+      }
+    },
+    {
+      "name": "chart",
+      "type": "registry:ui",
+      "title": "Chart",
+      "description": "Bar and line charts for several series in dither or glyphs, with a legend, axis labels and a hover tooltip.",
+      "categories": [
+        "data"
+      ],
+      "registryDependencies": [
+        "https://dotgrain.space/r/engine.json"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/ui/chart.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "modes": [
+          "dither",
+          "ascii"
+        ]
+      }
+    },
+    {
+      "name": "data-table",
+      "type": "registry:ui",
+      "title": "Data Table",
+      "description": "A sortable, filterable, selectable and paged table built on the dotgrain Table, without TanStack.",
+      "categories": [
+        "data"
+      ],
+      "registryDependencies": [
+        "https://dotgrain.space/r/engine.json",
+        "https://dotgrain.space/r/table.json",
+        "https://dotgrain.space/r/checkbox.json",
+        "https://dotgrain.space/r/input.json",
+        "https://dotgrain.space/r/button.json"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/ui/data-table.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "meta": {
+        "modes": [
+          "dither",
+          "ascii"
+        ]
+      }
+    },
+    {
       "name": "loader",
       "type": "registry:ui",
       "title": "Loader",

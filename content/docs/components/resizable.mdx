@@ -1,0 +1,38 @@
+---
+title: Resizable
+description: "Resizable panel groups split by dithered handles that thicken while dragged."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="resizable" />
+
+<Playground name="resizable" />
+
+## Installation
+
+<Install name="resizable" />
+
+## Usage
+
+```tsx
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
+
+<ResizablePanelGroup orientation="horizontal">
+  <ResizablePanel defaultSize="50%">One</ResizablePanel>
+  <ResizableHandle withHandle />
+  <ResizablePanel defaultSize="50%">Two</ResizablePanel>
+</ResizablePanelGroup>
+```
+
+Built on react-resizable-panels v4, as shadcn's is now: groups take `orientation`, and sizes accept percentages or pixels.
+
+## Accessibility
+
+- Each handle is a focusable `separator` with `aria-valuenow`; arrow keys resize, Home and End jump to the limits.
+- The handle's dither line is hidden; the grip glyph is `aria-hidden`.
+
+## Props
+
+<PropsTable name="resizable" />

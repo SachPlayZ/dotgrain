@@ -1,4 +1,4 @@
-import type { PlotType } from "./plot";
+import type { PlotSeries, PlotType } from "./plot";
 import type { Reveal } from "./text";
 
 export type Mode = "dither" | "ascii";
@@ -37,7 +37,7 @@ export type Source =
       reveal?: Reveal;
     }
   /** A data series drawn as bars or a line across the box. */
-  | { kind: "plot"; series: readonly number[]; type: PlotType };
+  | { kind: "plot"; series: PlotSeries; type: PlotType };
 
 /** One render request: quantized size in marks, time in seconds. */
 export interface Frame {

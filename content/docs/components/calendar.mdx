@@ -1,0 +1,36 @@
+---
+title: Calendar
+description: "A react-day-picker calendar where selected days fill with dither and range middles go halftone."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="calendar" />
+
+<Playground name="calendar" />
+
+## Installation
+
+<Install name="calendar" />
+
+## Usage
+
+```tsx
+import { Calendar } from "@/components/ui/calendar";
+
+const [date, setDate] = useState<Date>();
+
+<Calendar mode="single" selected={date} onSelect={setDate} />
+```
+
+Every react-day-picker prop passes through. Its `mode` picks single, multiple or range selection, so the dither `mode` token comes from the provider instead; other tokens work as props. Styling is inline (react-day-picker's `styles`), so there is no stylesheet to import.
+
+## Accessibility
+
+- react-day-picker's grid semantics and keyboard support: arrows, Page Up/Down, Home/End.
+- Selected and today states are in the DOM (`aria-selected`, labels); canvases are hidden.
+
+## Props
+
+<PropsTable name="calendar" />

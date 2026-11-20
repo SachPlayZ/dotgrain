@@ -1,0 +1,36 @@
+---
+title: Chart
+description: "Bar and line charts for several series in dither or glyphs, with a legend, axis labels and a hover tooltip."
+---
+
+import { ComponentHeader, Install, PropsTable } from '@/components/site/component-docs';
+import { Playground } from '@/components/site/playground';
+
+<ComponentHeader name="chart" />
+
+<Playground name="chart" />
+
+## Installation
+
+<Install name="chart" />
+
+## Usage
+
+```tsx
+import { Chart, type ChartConfig } from "@/components/ui/chart";
+
+const config = { desktop: { label: "Desktop" }, mobile: { label: "Mobile" } } satisfies ChartConfig;
+
+<Chart data={data} config={config} index="month" label="Visitors by device" />
+```
+
+shadcn's chart wraps Recharts, which dotgrain can't depend on, so this is its own small chart. The data and `config` shapes match shadcn's, but there is no `ChartContainer` or composable parts. Each series draws at a lower level than the one before, so 4-colour palettes give each its own colour and 2-colour ones give each its own dither density. For one-series glyph charts and sparklines, see [ASCII Chart](/docs/components/ascii-chart).
+
+## Accessibility
+
+- The canvas, legend, axes and tooltip are hidden; screen readers get a captioned table with every value.
+- The tooltip follows the pointer only; the table carries the same data for keyboard and screen-reader users.
+
+## Props
+
+<PropsTable name="chart" />

@@ -1,7 +1,8 @@
 export { glyphGrid, render } from "./cpu";
 export { RAMPS } from "./glyphs";
 export { Grain, splitTokens, useDataAttr, useEntered, useInk, type GrainProps } from "./grain";
-export type { PlotType } from "./plot";
+export type { PlotSeries, PlotType } from "./plot";
+export { seriesLevel } from "./plot";
 export { PALETTES, paletteColors } from "./palettes";
 export { DEFAULT_TOKENS, DitherProvider, useColorScheme, useDitherFont, useDitherTokens, useReducedMotion, type ColorScheme, type DitherProviderProps } from "./provider";
 export { Quantize, type QuantizeProps } from "./quantize";
