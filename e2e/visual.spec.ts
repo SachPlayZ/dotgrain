@@ -24,7 +24,8 @@ for (const example of Object.keys(examples)) {
         // Glyph atlases depend on fonts; wait so the first frame isn't drawn with a fallback.
         await page.evaluate(() => document.fonts.ready);
         const name = mode === "dither" ? `${example}-${palette}` : `${example}-${palette}-ascii`;
-        await expect(page.locator("#visual")).toHaveScreenshot(`${name}.png`);
+        // Eased mount animations (charts growing, frames drawing in) settle slowly under CI's emulated amd64.
+        await expect(page.locator("#visual")).toHaveScreenshot(`${name}.png`, { timeout: 20_000 });
       });
     }
   }
