@@ -15,7 +15,8 @@ export function Kbd({ children, style, ...props }: KbdProps) {
       {...rest}
       style={{ position: "relative", display: "inline-flex", alignItems: "center", justifyContent: "center", minWidth: 22, height: 22, padding: "0 5px", background: bg, color: fg, fontFamily: "monospace", fontSize: 12, lineHeight: 1, ...style }}
     >
-      <Grain {...tokens} field="frame" params={{ border: 1, fill: 0 }} />
+      {/* Dither even in ASCII: a one-glyph border would bury a 22px cap. */}
+      <Grain {...tokens} mode="dither" field="frame" params={{ border: 1, fill: 0 }} />
       <span style={{ position: "relative" }}>{children}</span>
     </kbd>
   );

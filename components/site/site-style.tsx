@@ -45,7 +45,10 @@ export function SiteStyle({ font, children }: { font: string; children: ReactNod
   );
 }
 
-const PATTERNS = ["bayer2", "bayer4", "bayer8", "blueNoise"] as const;
+/** The style bar's tokens, for site controls outside the docs sidebar (the landing page). */
+export const useSiteTokens = () => use(StyleContext);
+
+export const PATTERNS = ["bayer2", "bayer4", "bayer8", "blueNoise"] as const;
 
 /** Site-wide tokens: mode, pattern, palette and cell for every preview. */
 export function StyleBar() {
