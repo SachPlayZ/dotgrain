@@ -14,7 +14,9 @@ import { Label } from "@/registry/ui/label";
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarInset, SidebarMenu, SidebarMenuBadge, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarTrigger } from "@/registry/ui/sidebar";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/registry/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/registry/ui/tabs";
-import { Italic, Section } from "./section";
+import { Reveal } from "./motion";
+import { Section } from "./section";
+import { ScrambleText } from "@/registry/ui/scramble-text";
 
 const NAV = [["Overview", 0], ["Deploys", 3], ["Palettes", 0], ["Settings", 0]] as const;
 const STATS = [
@@ -46,7 +48,8 @@ export function Showcase() {
   const [toggled, setOpen] = useState<boolean | null>(null);
   const open = toggled ?? !narrow;
   return (
-    <Section n="02" title={<>Built with dotgrain, <Italic>start to finish.</Italic></>} lede="A full app screen: sidebar, tabs, charts, table, dialog, toasts. Every pixel below is one of our components, and every control works.">
+    <Section n="02" title="Built with dotgrain," italic="start to finish." lede="A full app screen: sidebar, tabs, charts, table, dialog, toasts. Every pixel below is one of our components, and every control works.">
+      <Reveal>
       <SidebarProvider open={open} onOpenChange={setOpen} style={{ minHeight: 560, border: "1px solid var(--color-fd-border)" }} className="bg-fd-card">
         <Sidebar width="13rem">
           <SidebarHeader>
@@ -107,14 +110,18 @@ export function Showcase() {
           </div>
 
           <div className="grid gap-4 [grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr))]">
-            {STATS.map((s) => (
-              <Card key={s.label} border={1} style={{ padding: 18 }}>
+            {STATS.map((s, i) => (
+              <Reveal key={s.label} delay={i * 120}>
+              <Card border={1} style={{ padding: 18 }}>
                 <div className="grid gap-2">
                 <span className="font-mono text-xs uppercase tracking-widest opacity-70">{s.label}</span>
-                <strong className="font-mono text-3xl">{s.value}</strong>
+                <strong className="font-mono text-3xl">
+                  <ScrambleText trigger="inView" duration={1200}>{s.value}</ScrambleText>
+                </strong>
                 <AsciiChart type="sparkline" data={s.data} label={`${s.label} trend`} />
                 </div>
               </Card>
+              </Reveal>
             ))}
           </div>
 
@@ -153,6 +160,7 @@ export function Showcase() {
           </Tabs>
         </SidebarInset>
       </SidebarProvider>
+      </Reveal>
     </Section>
   );
 }

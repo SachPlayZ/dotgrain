@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { examples } from "@/registry/examples";
 import { components } from "@/registry/meta";
+import { Reveal } from "./landing/motion";
 
 /** Mode badges, as on each component page. */
 export function Badges({ modes }: { modes: string[] }) {
@@ -24,11 +25,12 @@ export function Badges({ modes }: { modes: string[] }) {
 export function Wall() {
   return (
     <div className="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr))]">
-      {components.map((meta) => {
+      {components.map((meta, i) => {
         const Example = examples[`${meta.name}-demo`];
         return (
           // The caption link stretches over the tile, so the inert example never sits inside an <a>.
-          <div key={meta.name} className="relative flex flex-col overflow-hidden rounded-xl border hover:border-fd-primary">
+          <Reveal key={meta.name} delay={(i % 3) * 90} className="h-full">
+          <div className="relative flex h-full flex-col overflow-hidden rounded-xl border transition-[border-color,transform] duration-300 hover:-translate-y-1 hover:border-fd-primary">
             {/* Tiles are previews, not controls: their contents are inert and hidden from the accessibility tree. */}
             <div inert aria-hidden="true" className="relative h-56 overflow-hidden">
               <div className="flex h-full items-center justify-center p-4 [&>*]:max-w-full">{Example && <Example />}</div>
@@ -40,6 +42,7 @@ export function Wall() {
               <Badges modes={meta.modes} />
             </div>
           </div>
+          </Reveal>
         );
       })}
     </div>

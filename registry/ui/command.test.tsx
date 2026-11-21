@@ -28,4 +28,25 @@ describe("Command", () => {
     fireEvent.change(input, { target: { value: "zzz" } });
     expect(screen.getByText("None")).toBeTruthy();
   });
+
+  it("does not scroll the page to its first item on mount, only once focused", async () => {
+    const scroll = vi.spyOn(Element.prototype, "scrollIntoView");
+    render(
+      <Command>
+        <CommandInput placeholder="Search" />
+        <CommandList>
+          <CommandItem>Calendar</CommandItem>
+          <CommandItem>Settings</CommandItem>
+        </CommandList>
+      </Command>,
+    );
+    await new Promise((r) => setTimeout(r, 0));
+    expect(scroll).not.toHaveBeenCalled();
+    const input = screen.getByPlaceholderText("Search");
+    input.focus();
+    fireEvent.keyDown(input, { key: "ArrowDown" });
+    await new Promise((r) => setTimeout(r, 0));
+    expect(scroll).toHaveBeenCalled();
+    scroll.mockRestore();
+  });
 });
