@@ -1,7 +1,7 @@
 "use client";
 
 import type { ComponentProps } from "react";
-import { Grain, splitTokens, useInk } from "@/lib/dotgrain/grain";
+import { Grain, splitTokens, useEntered, useInk, useRise } from "@/lib/dotgrain/grain";
 import type { DitherTokens } from "@/lib/dotgrain/types";
 
 export type AlertProps = Omit<ComponentProps<"div">, keyof DitherTokens> & Partial<DitherTokens> & { variant?: "default" | "destructive" };
@@ -11,14 +11,15 @@ export function Alert({ variant = "default", children, style, ...props }: AlertP
   const [tokens, rest] = splitTokens(props);
   const { bg, fg } = useInk(tokens);
   const destructive = variant === "destructive";
+  const entered = useEntered();
   return (
     <div
       role="alert"
       data-variant={variant}
       {...rest}
-      style={{ position: "relative", display: "grid", gridTemplateColumns: "auto 1fr", rowGap: 2, alignItems: "start", padding: destructive ? "14px 18px" : "12px 16px", background: bg, color: fg, fontSize: 14, ...style }}
+      style={{ position: "relative", display: "grid", gridTemplateColumns: "auto 1fr", rowGap: 2, alignItems: "start", padding: destructive ? "14px 18px" : "12px 16px", background: bg, color: fg, fontSize: 14, ...useRise(), ...style }}
     >
-      <Grain {...tokens} field="frame" params={{ border: destructive ? 4 : 2, fill: 0 }} />
+      <Grain {...tokens} field="frame" params={{ border: destructive ? 4 : 2, fill: entered ? 0 : 1 }} />
       {destructive && (
         <span aria-hidden="true" style={{ position: "relative", gridRow: "span 2", paddingRight: 12, fontFamily: "monospace" }}>
           ✖

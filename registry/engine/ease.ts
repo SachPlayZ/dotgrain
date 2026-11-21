@@ -5,9 +5,12 @@ export interface Easer {
   step(target: Record<string, number>, seconds: number, snap: boolean): Record<string, number>;
 }
 
-/** Frame-rate independent exponential ease for numeric params, e.g. a progress value. */
-export function createEaser(rate = 10): Easer {
-  let current: Record<string, number> | undefined;
+/**
+ * Frame-rate independent exponential ease for numeric params, e.g. a progress value. Without `from` the first
+ * step snaps to its target; with it, the first target is eased to from there (a mount animation).
+ */
+export function createEaser(rate = 10, from?: Record<string, number>): Easer {
+  let current: Record<string, number> | undefined = from && { ...from };
   let last: number | undefined;
   const far = (target: Record<string, number>) =>
     !!current && Object.keys(target).some((k) => Math.abs((current![k] ?? target[k]) - target[k]) > 1e-3);
@@ -25,6 +28,9 @@ export function createEaser(rate = 10): Easer {
       const from = current;
       current = Object.fromEntries(Object.entries(target).map(([key, v]) => [key, (from[key] ?? v) + (v - (from[key] ?? v)) * k]));
       last = seconds;
+      // Land exactly once within tolerance: `settling` then turns false, so this is the last frame drawn and it
+      // must be the target itself, not a value a hair short of it (a stepped field, like a frame border, shows that).
+      if (!far(target)) current = { ...target };
       return current;
     },
   };

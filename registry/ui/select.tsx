@@ -2,7 +2,7 @@
 
 import { Select as SelectPrimitive } from "radix-ui";
 import { useState, type ComponentProps } from "react";
-import { Grain, splitTokens, useInk } from "@/lib/dotgrain/grain";
+import { Grain, splitTokens, useEntered, useInk, useRise } from "@/lib/dotgrain/grain";
 import type { DitherTokens } from "@/lib/dotgrain/types";
 
 type Tokens = Partial<DitherTokens>;
@@ -38,15 +38,17 @@ export type SelectContentProps = Omit<ComponentProps<typeof SelectPrimitive.Cont
 export function SelectContent({ children, position = "popper", sideOffset = 4, style, ...props }: SelectContentProps) {
   const [tokens, rest] = splitTokens(props);
   const { bg, fg } = useInk(tokens);
+  const entered = useEntered();
+  const rise = useRise();
   return (
     <SelectPrimitive.Portal>
       <SelectPrimitive.Content
         {...rest}
         position={position}
         sideOffset={sideOffset}
-        style={{ position: "relative", zIndex: 50, minWidth: "var(--radix-select-trigger-width)", maxHeight: "var(--radix-select-content-available-height)", overflow: "hidden", background: bg, color: fg, ...style }}
+        style={{ position: "relative", zIndex: 50, minWidth: "var(--radix-select-trigger-width)", maxHeight: "var(--radix-select-content-available-height)", overflow: "hidden", background: bg, color: fg, ...rise, ...style }}
       >
-        <Grain {...tokens} field="frame" params={{ border: 2, fill: 0 }} />
+        <Grain {...tokens} field="frame" params={{ border: 2, fill: entered ? 0 : 1 }} />
         <SelectPrimitive.ScrollUpButton style={{ display: "flex", justifyContent: "center", position: "relative" }}>▴</SelectPrimitive.ScrollUpButton>
         <SelectPrimitive.Viewport style={{ position: "relative", padding: 8 }}>{children}</SelectPrimitive.Viewport>
         <SelectPrimitive.ScrollDownButton style={{ display: "flex", justifyContent: "center", position: "relative" }}>▾</SelectPrimitive.ScrollDownButton>

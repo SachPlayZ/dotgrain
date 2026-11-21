@@ -31,6 +31,7 @@ export function AsciiChart({ data, type = "line", label, labels, className, styl
     <div ref={ref} className={className} style={{ position: "relative", ...size, ...style }}>
       <Quantize
         source={{ kind: "plot", series: data, type: type === "line" ? "line" : "bar" }}
+        ease
         {...tokens}
         glyphs={tokens.glyphs ?? (spark ? "blocks" : undefined)}
         mode="ascii"

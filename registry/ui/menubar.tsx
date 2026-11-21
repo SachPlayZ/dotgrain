@@ -2,7 +2,7 @@
 
 import { Menubar as Menu } from "radix-ui";
 import { useState, type ComponentProps, type CSSProperties, type FocusEvent } from "react";
-import { Grain, splitTokens, useDataAttr, useEntered, useInk, useWash } from "@/lib/dotgrain/grain";
+import { Grain, splitTokens, useDataAttr, useEntered, useInk, useRise, useWash } from "@/lib/dotgrain/grain";
 import { DitherProvider } from "@/lib/dotgrain/provider";
 import type { DitherTokens } from "@/lib/dotgrain/types";
 
@@ -49,9 +49,10 @@ export function MenubarContent({ children, sideOffset = 8, align = "start", styl
   const [tokens, rest] = splitTokens(props);
   const { bg, fg } = useInk(tokens);
   const entered = useEntered();
+  const rise = useRise();
   return (
     <Menu.Portal>
-      <Menu.Content {...rest} sideOffset={sideOffset} align={align} style={{ ...panel(bg, fg), ...style }}>
+      <Menu.Content {...rest} sideOffset={sideOffset} align={align} style={{ ...panel(bg, fg), ...rise, ...style }}>
         {/* Behind every child: the panel is a stacking context (positioned + z-index), so -1 sits above its background. */}
         <Grain {...tokens} field="frame" params={{ border: 2, fill: entered ? 0 : 1 }} style={{ zIndex: -1 }} />
         <DitherProvider {...tokens}>{children}</DitherProvider>
@@ -63,9 +64,10 @@ export function MenubarContent({ children, sideOffset = 8, align = "start", styl
 export function MenubarSubContent({ children, style, ...props }: ComponentProps<typeof Menu.SubContent>) {
   const { bg, fg } = useInk({});
   const entered = useEntered();
+  const rise = useRise();
   return (
     <Menu.Portal>
-      <Menu.SubContent {...props} style={{ ...panel(bg, fg), ...style }}>
+      <Menu.SubContent {...props} style={{ ...panel(bg, fg), ...rise, ...style }}>
         <Grain field="frame" params={{ border: 2, fill: entered ? 0 : 1 }} style={{ zIndex: -1 }} />
         {children}
       </Menu.SubContent>

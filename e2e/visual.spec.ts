@@ -9,6 +9,12 @@ const palettesFor = (example: string) => (backgrounds.some((n) => example.starts
 
 // Demos that load something before their final frame: wait for this selector before checking canvases.
 const READY: Record<string, string> = { "avatar-demo": "#visual img" };
+// Eased mount animations (charts growing, frames drawing in) run many slow frames under CI's emulated amd64,
+// where two identical screenshots can come between frames. Wait for the engine to go idle; demos that never do
+// (a playing video) fall through after the timeout.
+const settled = (page: Page) =>
+  page.waitForFunction(() => !(window as Window & { dgBusy?: () => boolean }).dgBusy?.(), null, { timeout: 15_000 }).catch(() => {});
+
 const ready = (page: Page, example: string) => (READY[example] ? page.waitForSelector(READY[example], { state: "attached" }) : undefined);
 
 for (const example of Object.keys(examples)) {
@@ -23,8 +29,10 @@ for (const example of Object.keys(examples)) {
         );
         // Glyph atlases depend on fonts; wait so the first frame isn't drawn with a fallback.
         await page.evaluate(() => document.fonts.ready);
+        await settled(page);
         const name = mode === "dither" ? `${example}-${palette}` : `${example}-${palette}-ascii`;
-        await expect(page.locator("#visual")).toHaveScreenshot(`${name}.png`);
+        // Eased mount animations (charts growing, frames drawing in) settle slowly under CI's emulated amd64.
+        await expect(page.locator("#visual")).toHaveScreenshot(`${name}.png`, { timeout: 20_000 });
       });
     }
   }

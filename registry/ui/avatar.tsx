@@ -2,7 +2,7 @@
 
 import { Avatar as AvatarPrimitive } from "radix-ui";
 import { useState, type ComponentProps } from "react";
-import { Grain, splitTokens, useInk } from "@/lib/dotgrain/grain";
+import { Grain, splitTokens, useInk, useRise } from "@/lib/dotgrain/grain";
 import { DitherProvider } from "@/lib/dotgrain/provider";
 import { Quantize } from "@/lib/dotgrain/quantize";
 import type { DitherTokens } from "@/lib/dotgrain/types";
@@ -36,9 +36,14 @@ export function AvatarImage({ src, onLoadingStatusChange, style, ...props }: Com
         onLoadingStatusChange={(s) => (setLoaded(s === "loaded"), onLoadingStatusChange?.(s))}
         style={{ ...(failed ? { position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" } : hidden), ...style }}
       />
-      {loaded && typeof src === "string" && !failed && <Quantize source={{ kind: "image", src, crossOrigin: props.crossOrigin === "anonymous" ? "anonymous" : undefined }} onError={() => setFailed(true)} style={{ position: "absolute", inset: 0 }} />}
+      {loaded && typeof src === "string" && !failed && <Picture src={src} crossOrigin={props.crossOrigin === "anonymous" ? "anonymous" : undefined} onError={() => setFailed(true)} />}
     </>
   );
+}
+
+// Mounted once the image has loaded, so it fades in over the fallback rather than replacing it in one frame.
+function Picture({ src, crossOrigin, onError }: { src: string; crossOrigin?: "anonymous"; onError: () => void }) {
+  return <Quantize source={{ kind: "image", src, crossOrigin }} onError={onError} style={{ position: "absolute", inset: 0, ...useRise(0) }} />;
 }
 
 /** Shown until the image loads (or if it fails): initials on a light dither. */

@@ -1,7 +1,7 @@
 "use client";
 
 import type { ComponentProps } from "react";
-import { Grain, splitTokens, useInk } from "@/lib/dotgrain/grain";
+import { Grain, splitTokens, useInk, useRise } from "@/lib/dotgrain/grain";
 import { DitherProvider } from "@/lib/dotgrain/provider";
 import type { DitherTokens } from "@/lib/dotgrain/types";
 
@@ -14,7 +14,7 @@ export function Empty({ children, style, ...props }: EmptyProps) {
   return (
     <div
       {...rest}
-      style={{ display: "flex", flex: 1, flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 24, minWidth: 0, padding: 32, textAlign: "center", background: bg, color: fg, ...style }}
+      style={{ display: "flex", flex: 1, flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 24, minWidth: 0, padding: 32, textAlign: "center", background: bg, color: fg, ...useRise(8), ...style }}
     >
       <DitherProvider {...tokens}>{children}</DitherProvider>
     </div>

@@ -2,7 +2,7 @@
 
 import { HoverCard as HoverCardPrimitive } from "radix-ui";
 import type { ComponentProps } from "react";
-import { Grain, splitTokens, useEntered, useInk } from "@/lib/dotgrain/grain";
+import { Grain, splitTokens, useEntered, useInk, useRise } from "@/lib/dotgrain/grain";
 import type { DitherTokens } from "@/lib/dotgrain/types";
 
 export const HoverCard = HoverCardPrimitive.Root;
@@ -21,7 +21,7 @@ export function HoverCardContent({ children, align = "center", sideOffset = 6, s
         {...rest}
         align={align}
         sideOffset={sideOffset}
-        style={{ position: "relative", zIndex: 50, width: 256, padding: 16, background: bg, color: fg, outline: "none", ...style }}
+        style={{ position: "relative", zIndex: 50, width: 256, padding: 16, background: bg, color: fg, outline: "none", ...useRise(), ...style }}
       >
         {/* Behind every child: the panel is a stacking context (positioned + z-index), so -1 sits above its background. */}
         <Grain {...tokens} field="frame" params={{ border: 2, fill: entered ? 0 : 1 }} style={{ zIndex: -1 }} />

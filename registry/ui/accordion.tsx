@@ -1,8 +1,8 @@
 "use client";
 
 import { Accordion as AccordionPrimitive } from "radix-ui";
-import type { ComponentProps } from "react";
-import { Grain, splitTokens, useDataAttr, useInk, useWash } from "@/lib/dotgrain/grain";
+import type { ComponentProps, ReactNode } from "react";
+import { Grain, splitTokens, useDataAttr, useInk, useRise, useWash } from "@/lib/dotgrain/grain";
 import type { DitherTokens } from "@/lib/dotgrain/types";
 
 export const Accordion = AccordionPrimitive.Root;
@@ -46,6 +46,11 @@ export function AccordionTrigger({ children, style, ref, ...props }: AccordionTr
 
 export const AccordionContent = ({ children, style, ...props }: ComponentProps<typeof AccordionPrimitive.Content>) => (
   <AccordionPrimitive.Content {...props} style={{ overflow: "hidden", fontSize: 14, ...style }}>
-    <div style={{ padding: "0 4px 12px" }}>{children}</div>
+    <Rise>{children}</Rise>
   </AccordionPrimitive.Content>
 );
+
+// A component of its own so the rise restarts each time Radix mounts the opened content.
+function Rise({ children }: { children: ReactNode }) {
+  return <div style={{ padding: "0 4px 12px", ...useRise(6) }}>{children}</div>;
+}

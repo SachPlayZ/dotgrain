@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState, type CSSProperties, type Ref } from "react";
 import { paletteColors } from "./palettes";
-import { useColorScheme, useDitherTokens } from "./provider";
+import { useColorScheme, useDitherTokens, useReducedMotion } from "./provider";
 import { Quantize } from "./quantize";
 import type { DitherTokens, FieldName } from "./types";
 
@@ -47,6 +47,20 @@ export function useEntered(): boolean {
     return () => cancelAnimationFrame(id);
   }, []);
   return entered;
+}
+
+/**
+ * Style for content that would otherwise pop in (an opened panel, a switched tab): it fades and slides `offset`
+ * pixels into place on mount. Spread it before the caller's style. Nothing under reduced motion.
+ */
+export function useRise(offset = 4): CSSProperties {
+  const entered = useEntered();
+  if (useReducedMotion()) return {};
+  return {
+    opacity: entered ? 1 : 0,
+    transform: entered ? "none" : `translateY(${offset}px)`,
+    transition: "opacity 180ms ease-out, transform 260ms cubic-bezier(0.2, 0.7, 0, 1)",
+  };
 }
 
 const WASH_SOFTNESS = 0.25;

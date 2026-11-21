@@ -28,4 +28,20 @@ describe("createEaser", () => {
     expect(easer.step({ value: 1 }, 1, true)).toEqual({ value: 1 });
     expect(easer.settling({ value: 1 })).toBe(false);
   });
+
+  it("eases from a seed on the first step instead of snapping", () => {
+    const easer = createEaser(10, { grow: 0 });
+    const first = easer.step({ grow: 1 }, 0, false);
+    expect(first.grow).toBeGreaterThan(0);
+    expect(first.grow).toBeLessThan(1);
+    expect(easer.step({ grow: 1 }, 1, true).grow).toBe(1);
+  });
+
+  it("lands exactly on the target on the step that stops settling", () => {
+    const easer = createEaser(10, { v: 0 });
+    let out: Record<string, number> = { v: 0 };
+    for (let t = 0; easer.settling({ v: 3 }) || t === 0; t += 1 / 60) out = easer.step({ v: 3 }, t, false);
+    expect(out.v).toBe(3);
+  });
 });
+

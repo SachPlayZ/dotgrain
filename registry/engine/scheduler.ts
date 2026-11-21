@@ -71,7 +71,8 @@ export function createScheduler(env: SchedulerEnv) {
         e.dirty = false;
         e.view.render({ seconds: ms / 1000, width: e.width, height: e.height, dpr, still });
       }
-      again ||= animate;
+      // Asked again after rendering: a first frame can start an animation (an eased plot growing in).
+      again ||= animate || (!still && e.view.animated());
     }
     if (again) wake();
   }
@@ -82,6 +83,8 @@ export function createScheduler(env: SchedulerEnv) {
   return {
     /** Re-render every view on the next frame (e.g. fonts finished loading). */
     invalidateAll,
+    /** True while a frame is queued: something is animating, easing or waiting to draw. */
+    busy: () => pending,
     add(view: View): ViewHandle {
       const e: Entry = { view, visible: false, dirty: true, width: 0, height: 0 };
       entries.add(e);
