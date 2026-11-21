@@ -36,5 +36,12 @@ describe("createEaser", () => {
     expect(first.grow).toBeLessThan(1);
     expect(easer.step({ grow: 1 }, 1, true).grow).toBe(1);
   });
+
+  it("lands exactly on the target on the step that stops settling", () => {
+    const easer = createEaser(10, { v: 0 });
+    let out = { v: 0 };
+    for (let t = 0; easer.settling({ v: 3 }) || t === 0; t += 1 / 60) out = easer.step({ v: 3 }, t, false);
+    expect(out.v).toBe(3);
+  });
 });
 

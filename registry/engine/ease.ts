@@ -28,6 +28,9 @@ export function createEaser(rate = 10, from?: Record<string, number>): Easer {
       const from = current;
       current = Object.fromEntries(Object.entries(target).map(([key, v]) => [key, (from[key] ?? v) + (v - (from[key] ?? v)) * k]));
       last = seconds;
+      // Land exactly once within tolerance: `settling` then turns false, so this is the last frame drawn and it
+      // must be the target itself, not a value a hair short of it (a stepped field, like a frame border, shows that).
+      if (!far(target)) current = { ...target };
       return current;
     },
   };
