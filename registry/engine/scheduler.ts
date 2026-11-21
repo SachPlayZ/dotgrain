@@ -83,6 +83,8 @@ export function createScheduler(env: SchedulerEnv) {
   return {
     /** Re-render every view on the next frame (e.g. fonts finished loading). */
     invalidateAll,
+    /** True while a frame is queued: something is animating, easing or waiting to draw. */
+    busy: () => pending,
     add(view: View): ViewHandle {
       const e: Entry = { view, visible: false, dirty: true, width: 0, height: 0 };
       entries.add(e);
