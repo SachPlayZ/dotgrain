@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, use, type ComponentProps } from "react";
-import { Grain, splitTokens, useInk } from "@/lib/dotgrain/grain";
+import { Grain, splitTokens, useInk, useRise } from "@/lib/dotgrain/grain";
 import { useDitherTokens } from "@/lib/dotgrain/provider";
 import type { DitherTokens } from "@/lib/dotgrain/types";
 
@@ -27,6 +27,7 @@ export function Attachment({ state = "done", size = "default", orientation = "ho
   const busy = state === "uploading" || state === "processing";
   // The error frame is a cell thicker; pad by a cell so it never runs into the text.
   const { cell } = useDitherTokens(tokens);
+  const rise = useRise();
   const pad = PAD[size] + (state === "error" ? cell : 0);
   return (
     <AttachmentContext value={{ state, size, vertical, tokens }}>
@@ -36,7 +37,7 @@ export function Attachment({ state = "done", size = "default", orientation = "ho
         data-orientation={orientation}
         aria-busy={busy || undefined}
         {...rest}
-        style={{ position: "relative", display: "flex", flexDirection: vertical ? "column" : "row", alignItems: vertical ? "stretch" : "center", flexShrink: 0, gap: 8, width: vertical ? 120 : "fit-content", minWidth: vertical ? undefined : 160, maxWidth: "100%", padding: pad, background: bg, color: fg, fontSize: size === "default" ? 14 : 12, ...style }}
+        style={{ position: "relative", display: "flex", flexDirection: vertical ? "column" : "row", alignItems: vertical ? "stretch" : "center", flexShrink: 0, gap: 8, width: vertical ? 120 : "fit-content", minWidth: vertical ? undefined : 160, maxWidth: "100%", padding: pad, background: bg, color: fg, fontSize: size === "default" ? 14 : 12, ...rise, ...style }}
       >
         <Grain {...tokens} field="frame" params={{ border: state === "error" ? 2 : 1, fill: 0 }} style={{ opacity: state === "idle" ? 0.5 : 1 }} />
         {busy && <Grain {...tokens} mode="dither" field="shimmer" style={{ top: "auto", height: 3 }} />}

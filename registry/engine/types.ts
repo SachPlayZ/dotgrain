@@ -37,7 +37,7 @@ export type Source =
       reveal?: Reveal;
     }
   /** A data series drawn as bars or a line across the box. */
-  | { kind: "plot"; series: PlotSeries; type: PlotType };
+  | { kind: "plot"; series: PlotSeries; type: PlotType; /** 0–1 share drawn: bars rise (staggered left to right), lines draw across. */ grow?: number };
 
 /** One render request: quantized size in marks, time in seconds. */
 export interface Frame {

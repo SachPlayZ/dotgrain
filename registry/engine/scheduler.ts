@@ -71,7 +71,8 @@ export function createScheduler(env: SchedulerEnv) {
         e.dirty = false;
         e.view.render({ seconds: ms / 1000, width: e.width, height: e.height, dpr, still });
       }
-      again ||= animate;
+      // Asked again after rendering: a first frame can start an animation (an eased plot growing in).
+      again ||= animate || (!still && e.view.animated());
     }
     if (again) wake();
   }

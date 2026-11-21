@@ -7,7 +7,7 @@ import { createEaser, type Easer } from "./ease";
 import { INK_PALETTES, paletteColors } from "./palettes";
 import { GLYPH_ASPECT } from "./glyphs";
 import { imageValues, videoValues, watchImage } from "./images";
-import { plotValues } from "./plot";
+import { plotValues, type PlotSeries } from "./plot";
 import { revealAmount, revealed, scrambled, textValues } from "./text";
 import { trackPointer, type PointerTracker } from "./pointer";
 import { useColorScheme, useDitherFont, useDitherTokens } from "./provider";
@@ -106,6 +106,7 @@ export function Quantize({
         if (source.kind === "video" && !source.element.paused && !source.element.ended) return true;
         if (source.kind === "text" && source.scramble && tokens.speed > 0) return true;
         if (source.kind === "text" && source.reveal && performance.now() < source.reveal.start + source.reveal.duration) return true;
+        if (source.kind === "plot" && ease && easer.current?.settling(plotTarget(source.series))) return true;
         if (source.kind !== "field") return !!pointer.current?.settling();
         // radial, linear, progress and frame ignore time: they redraw only on change, pointer movement or easing.
         return (
@@ -119,6 +120,12 @@ export function Quantize({
         let { source } = latest.current;
         if (ease && source.kind === "field" && source.params) {
           source = { ...source, params: (easer.current ??= createEaser()).step(source.params, seconds, still) };
+        }
+        if (ease && source.kind === "plot") {
+          // Points ease between data changes; the first draw grows in from the baseline.
+          const target = plotTarget(source.series);
+          const now = (easer.current ??= createEaser(PLOT_RATE, { ...target, grow: 0 })).step(target, seconds, still);
+          source = { ...source, series: reshape(source.series, now), grow: now.grow };
         }
         // At least one cell, so lines thinner than a cell (focus rules) still draw.
         const w = width > 0 ? Math.max(1, Math.round(width / (tokens.mode === "ascii" ? tokens.cell * GLYPH_ASPECT : tokens.cell))) : 0;
@@ -135,7 +142,7 @@ export function Quantize({
               : source.kind === "video"
                 ? videoValues(source.element, w, h, width / height)
                 : source.kind === "plot"
-                  ? plotValues(source.series, source.type, w, h)
+                  ? plotValues(source.series, source.type, w, h, source.grow)
                   : textValues(source.element, w, h);
           if (result === "error") onError?.();
           if (typeof result === "string") return;
@@ -166,4 +173,21 @@ export function Quantize({
       style={{ display: "block", width: "100%", height: "100%", imageRendering: "pixelated", background, ...style }}
     />
   );
+}
+
+// Slower than a param ease: a chart growing in should read as a gesture, about half a second.
+const PLOT_RATE = 5;
+
+/** A plot's points flattened into easer params, plus the grow it is heading to. */
+function plotTarget(series: PlotSeries): Record<string, number> {
+  const out: Record<string, number> = { grow: 1 };
+  (series.length && Array.isArray(series[0]) ? (series as readonly (readonly number[])[]).flat() : (series as readonly number[])).forEach((v, i) => (out[i] = v));
+  return out;
+}
+
+/** Eased params back into the series' shape. */
+function reshape(series: PlotSeries, eased: Record<string, number>): PlotSeries {
+  let i = 0;
+  const take = (s: readonly number[]) => s.map(() => eased[i++]);
+  return series.length && Array.isArray(series[0]) ? (series as readonly (readonly number[])[]).map(take) : take(series as readonly number[]);
 }

@@ -45,4 +45,22 @@ describe("plotValues with several series", () => {
     expect(rows[0]).toEqual([0.5, 0.5]);
     expect(rows[1]).toEqual([1, 1]);
   });
+
+  it("grows bars in left to right and draws lines across", () => {
+    const sum = (v: Float32Array, from: number, to: number, cols: number) => {
+      let t = 0;
+      for (let i = 0; i < v.length; i++) if (i % cols >= from && i % cols < to) t += v[i];
+      return t;
+    };
+    const none = plotValues([1, 1], "bar", 2, 4, 0);
+    expect(sum(none, 0, 2, 2)).toBe(0);
+    // Partway: the first bar is ahead of the second.
+    const mid = plotValues([1, 1], "bar", 2, 4, 0.5);
+    expect(sum(mid, 0, 1, 2)).toBeGreaterThan(sum(mid, 1, 2, 2));
+    expect(sum(plotValues([1, 1], "bar", 2, 4, 1), 0, 2, 2)).toBe(8);
+    const line = plotValues([0, 1], "line", 4, 4, 0.5);
+    expect(sum(line, 2, 4, 4)).toBe(0);
+    expect(sum(line, 0, 2, 4)).toBeGreaterThan(0);
+  });
 });
+

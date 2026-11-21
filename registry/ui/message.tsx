@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, use, type ComponentProps } from "react";
+import { useRise } from "@/lib/dotgrain/grain";
 
 type Align = "start" | "end";
 const AlignContext = createContext<Align>("start");
@@ -15,7 +16,7 @@ export const MessageGroup = ({ style, ...props }: ComponentProps<"div">) => <div
 export function Message({ align = "start", style, ...props }: MessageProps) {
   return (
     <AlignContext value={align}>
-      <div data-align={align} {...props} style={{ position: "relative", display: "flex", flexDirection: align === "end" ? "row-reverse" : "row", gap: 8, width: "100%", minWidth: 0, fontSize: 14, ...style }} />
+      <div data-align={align} {...props} style={{ position: "relative", display: "flex", flexDirection: align === "end" ? "row-reverse" : "row", gap: 8, width: "100%", minWidth: 0, fontSize: 14, ...useRise(8), ...style }} />
     </AlignContext>
   );
 }

@@ -3,7 +3,7 @@
 import { useMemo, useState, type ComponentProps, type CSSProperties } from "react";
 import { Grain, splitTokens, useInk } from "@/lib/dotgrain/grain";
 import { seriesLevel } from "@/lib/dotgrain/plot";
-import { DitherProvider } from "@/lib/dotgrain/provider";
+import { DitherProvider, useReducedMotion } from "@/lib/dotgrain/provider";
 import { Quantize } from "@/lib/dotgrain/quantize";
 import type { DitherTokens } from "@/lib/dotgrain/types";
 
@@ -39,6 +39,7 @@ export function Chart({ data, config, index, type = "bar", label, height = 200, 
   const max = Math.max(0, ...series.flat());
   const min = Math.min(0, ...series.flat());
   const [hover, setHover] = useState<number | null>(null);
+  const reduced = useReducedMotion();
   const n = data.length;
   // Few points: label each; many: first, middle and last.
   const ticks = n <= 12 ? data.map((_, i) => i) : [0, Math.floor((n - 1) / 2), n - 1];
@@ -71,9 +72,10 @@ export function Chart({ data, config, index, type = "bar", label, height = 200, 
           }}
           onPointerLeave={() => setHover(null)}
         >
-          <Quantize source={{ kind: "plot", series, type }} style={{ position: "absolute", inset: 0 }} />
+          {/* Eased: bars rise in (staggered) when first seen and morph when the data changes. */}
+          <Quantize source={{ kind: "plot", series, type }} ease style={{ position: "absolute", inset: 0 }} />
           {hover !== null && (
-            <div aria-hidden="true" style={{ position: "absolute", top: 0, bottom: 0, left: `${at(hover) * 100}%`, borderLeft: `1px dashed ${fg}`, pointerEvents: "none" }}>
+            <div aria-hidden="true" style={{ position: "absolute", top: 0, bottom: 0, left: `${at(hover) * 100}%`, borderLeft: `1px dashed ${fg}`, pointerEvents: "none", transition: reduced ? undefined : "left 120ms ease-out" }}>
               <div style={{ position: "absolute", top: 4, [at(hover) > 0.6 ? "right" : "left"]: 6, padding: "6px 8px", background: bg, border: `1px solid ${fg}`, whiteSpace: "nowrap" }}>
                 <div style={{ fontWeight: 600, marginBottom: 2 }}>{data[hover][index]}</div>
                 {keys.map((k, i) => (

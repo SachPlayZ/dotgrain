@@ -2,7 +2,7 @@
 
 import { NavigationMenu as NavigationMenuPrimitive } from "radix-ui";
 import { useState, type ComponentProps, type CSSProperties } from "react";
-import { Grain, splitTokens, useDataAttr, useInk, useWash } from "@/lib/dotgrain/grain";
+import { Grain, splitTokens, useDataAttr, useInk, useRise, useWash } from "@/lib/dotgrain/grain";
 import { DitherProvider } from "@/lib/dotgrain/provider";
 import type { DitherTokens } from "@/lib/dotgrain/types";
 
@@ -48,9 +48,9 @@ export function NavigationMenuTrigger({ children, style, ref, ...props }: Compon
   );
 }
 
-export const NavigationMenuContent = ({ style, ...props }: ComponentProps<typeof NavigationMenuPrimitive.Content>) => (
-  <NavigationMenuPrimitive.Content {...props} style={{ position: "absolute", top: 0, left: 0, padding: 12, ...style }} />
-);
+export function NavigationMenuContent({ style, ...props }: ComponentProps<typeof NavigationMenuPrimitive.Content>) {
+  return <NavigationMenuPrimitive.Content {...props} style={{ position: "absolute", top: 0, left: 0, padding: 12, ...useRise(6), ...style }} />;
+}
 
 /** Hosts open content under the bar inside a dithered frame, sized by Radix to the active content. */
 export function NavigationMenuViewport({ style, ref, ...props }: ComponentProps<typeof NavigationMenuPrimitive.Viewport>) {

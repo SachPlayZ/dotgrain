@@ -2,7 +2,7 @@
 
 import { Tabs as TabsPrimitive } from "radix-ui";
 import type { ComponentProps } from "react";
-import { Grain, splitTokens, useDataAttr, useInk } from "@/lib/dotgrain/grain";
+import { Grain, splitTokens, useDataAttr, useInk, useRise } from "@/lib/dotgrain/grain";
 import type { DitherTokens } from "@/lib/dotgrain/types";
 
 export const Tabs = ({ style, ...props }: ComponentProps<typeof TabsPrimitive.Root>) => (
@@ -43,6 +43,7 @@ export function TabsTrigger({ children, style, ref, ...props }: TabsTriggerProps
   );
 }
 
-export const TabsContent = ({ style, ...props }: ComponentProps<typeof TabsPrimitive.Content>) => (
-  <TabsPrimitive.Content {...props} style={{ flex: 1, outline: "none", ...style }} />
-);
+/** A panel; it rises in each time its tab is chosen (Radix mounts the active panel only). */
+export function TabsContent({ style, ...props }: ComponentProps<typeof TabsPrimitive.Content>) {
+  return <TabsPrimitive.Content {...props} style={{ flex: 1, outline: "none", ...useRise(6), ...style }} />;
+}

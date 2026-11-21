@@ -1,6 +1,7 @@
 "use client";
 
 import type { CSSProperties, ReactNode, Ref } from "react";
+import { useEntered } from "@/lib/dotgrain/grain";
 import { paletteColors } from "@/lib/dotgrain/palettes";
 import { useColorScheme, useDitherTokens } from "@/lib/dotgrain/provider";
 import { Quantize } from "@/lib/dotgrain/quantize";
@@ -20,9 +21,11 @@ export type CardProps = Partial<DitherTokens> & {
 export function Card({ border = 3, fill = 0, children, className, style, ref, ...tokens }: CardProps) {
   // Text takes the palette's foreground so it reads on the palette's background in any page theme.
   const colors = paletteColors(useDitherTokens(tokens).palette, useColorScheme().scheme);
+  // The frame draws inward from the edge on mount (eased; instant under reduced motion).
+  const entered = useEntered();
   return (
     <div ref={ref} className={className} style={{ position: "relative", padding: 24, color: colors[colors.length - 1], ...style }}>
-      <Quantize source={{ kind: "field", field: "frame", params: { border, fill } }} {...tokens} style={{ position: "absolute", inset: 0 }} />
+      <Quantize source={{ kind: "field", field: "frame", params: { border: entered ? border : 0, fill } }} ease {...tokens} style={{ position: "absolute", inset: 0 }} />
       <div style={{ position: "relative" }}>{children}</div>
     </div>
   );
