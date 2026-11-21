@@ -3,7 +3,7 @@ import { Hero } from "@/components/site/landing/hero";
 import { Install } from "@/components/site/landing/install";
 import { Knobs } from "@/components/site/landing/knobs";
 import { Media } from "@/components/site/landing/media";
-import { Italic, Section } from "@/components/site/landing/section";
+import { Section } from "@/components/site/landing/section";
 import { Showcase } from "@/components/site/landing/showcase";
 import { Ticker } from "@/components/site/landing/ticker";
 import { components } from "@/registry/meta";
@@ -17,7 +17,7 @@ export default function HomePage() {
       <Knobs />
       <Showcase />
       <Media />
-      <Section n="04" title={<>Every component, <Italic>live.</Italic></>} lede="The whole registry, rendering through one shared WebGL2 context. Tiles offscreen sleep.">
+      <Section n="04" title="Every component," italic="live." lede="The whole registry, rendering through one shared WebGL2 context. Tiles offscreen sleep.">
         <Wall />
       </Section>
       <Install />

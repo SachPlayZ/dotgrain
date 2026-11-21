@@ -14,7 +14,11 @@ import { Slider } from "@/registry/ui/slider";
 import { Spinner } from "@/registry/ui/spinner";
 import { Switch } from "@/registry/ui/switch";
 import { ToggleGroup, ToggleGroupItem } from "@/registry/ui/toggle-group";
-import { Italic, Section } from "./section";
+import { Reveal, useTick } from "./motion";
+import { Section } from "./section";
+
+const DEPLOYS = [3, 5, 4, 8, 6, 9, 12, 10, 7, 11];
+const LOADS = [18, 46, 72, 100, 8];
 
 const label = "font-mono text-xs uppercase tracking-[0.2em] text-fd-muted-foreground";
 
@@ -23,11 +27,15 @@ export function Knobs() {
   const { tokens, setTokens } = useSiteTokens();
   const mode = tokens.mode ?? "dither";
   const cell = tokens.cell ?? (mode === "ascii" ? 10 : 3);
+  const tick = useTick(1600);
+  // Demo data keeps moving, so every knob change is seen on a live sheet, not a still.
+  const deploys = [...DEPLOYS.slice(tick % DEPLOYS.length), ...DEPLOYS.slice(0, tick % DEPLOYS.length)].slice(0, 8);
   const set = (next: Partial<DitherTokens>) => setTokens({ ...tokens, ...next });
   return (
-    <Section n="01" title={<>One provider. <Italic>Every pixel follows.</Italic></>} lede="Mode, pattern, cell and palette are tokens on one provider. Turn a knob here and the whole page re-renders: this sheet, the hero, the wall below.">
+    <Section n="01" title="One provider." italic="Every pixel follows." lede="Mode, pattern, cell and palette are tokens on one provider. Turn a knob here and the whole page re-renders: this sheet, the hero, the wall below.">
       <div className="grid gap-10 lg:grid-cols-[18rem_1fr]">
-        <div className="flex flex-col gap-6 self-start lg:sticky lg:top-20">
+        <Reveal className="self-start lg:sticky lg:top-20">
+        <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-2">
             <span id="knob-mode" className={label}>mode</span>
             <ToggleGroup type="single" value={mode} onValueChange={(v) => v && set({ mode: v as DitherTokens["mode"], cell: undefined })} aria-labelledby="knob-mode">
@@ -56,14 +64,18 @@ export function Knobs() {
             Reset
           </Button>
         </div>
+        </Reveal>
 
         <div className="grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr))]">
+          <Reveal delay={0}>
           <Card border={1} style={{ padding: 20 }}>
             <div className="grid gap-4">
             <span className={label}>deploys / week</span>
-            <AsciiChart type="bar" data={[3, 5, 4, 8, 6, 9, 12, 10]} label="Deploys per week, rising from 3 to 12" style={{ height: 120 }} />
+            <AsciiChart type="bar" data={deploys} label="Deploys per week, rising from 3 to 12" style={{ height: 120 }} />
             </div>
           </Card>
+          </Reveal>
+          <Reveal delay={120}>
           <Card border={1} style={{ padding: 20 }}>
             <div className="grid gap-4">
             <span className={label}>controls</span>
@@ -72,6 +84,8 @@ export function Knobs() {
             <Slider defaultValue={[30, 70]} aria-label="Range" />
             </div>
           </Card>
+          </Reveal>
+          <Reveal delay={240}>
           <Card border={1} style={{ padding: 20 }}>
             <div className="grid gap-4">
             <span className={label}>status</span>
@@ -81,10 +95,12 @@ export function Knobs() {
               <Badge variant="outline">draft</Badge>
               <Badge variant="destructive">failed</Badge>
             </div>
-            <Progress value={72} label="Build progress" />
+            <Progress value={LOADS[tick % LOADS.length]} label="Build progress" />
             <span className="flex items-center gap-3 text-sm"><Spinner /> Quantizing…</span>
             </div>
           </Card>
+          </Reveal>
+          <Reveal delay={360}>
           <Card border={1} style={{ padding: 20 }}>
             <div className="grid gap-4">
             <span className={label}>actions</span>
@@ -95,6 +111,7 @@ export function Knobs() {
             <Button size="lg" style={{ width: "100%" }}>Install the registry</Button>
             </div>
           </Card>
+          </Reveal>
         </div>
       </div>
     </Section>

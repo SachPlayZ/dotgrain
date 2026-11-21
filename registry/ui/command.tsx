@@ -1,7 +1,7 @@
 "use client";
 
 import { Command as CommandPrimitive } from "cmdk";
-import { useState, type ComponentProps } from "react";
+import { useCallback, useState, type ComponentProps } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { Grain, splitTokens, useDataAttr, useInk, useWash } from "@/lib/dotgrain/grain";
 import { DitherProvider } from "@/lib/dotgrain/provider";
@@ -72,8 +72,15 @@ export const CommandEmpty = ({ style, ...props }: ComponentProps<typeof CommandP
   <CommandPrimitive.Empty {...props} style={{ padding: "24px 0", textAlign: "center", fontSize: 14, opacity: 0.7, ...style }} />
 );
 
-export const CommandGroup = ({ style, ...props }: ComponentProps<typeof CommandPrimitive.Group>) => (
-  <CommandPrimitive.Group {...props} style={{ padding: 4, fontSize: 14, ...style }} />
+// cmdk scrolls its first item (and that group's heading) into view on mount, which drags the whole page to a
+// Command below the fold. Let those scrolls through only once focus is inside the command (typing, arrow keys).
+function guardScroll(el: HTMLElement | null | undefined) {
+  if (el) el.scrollIntoView = (arg) => void (el.closest("[cmdk-root]")?.contains(document.activeElement) && HTMLElement.prototype.scrollIntoView.call(el, arg));
+}
+const guardHeading = (el: HTMLDivElement | null) => guardScroll(el?.querySelector<HTMLElement>("[cmdk-group-heading]"));
+
+export const CommandGroup = ({ style, ...props }: Omit<ComponentProps<typeof CommandPrimitive.Group>, "ref">) => (
+  <CommandPrimitive.Group {...props} ref={guardHeading} style={{ padding: 4, fontSize: 14, ...style }} />
 );
 
 export const CommandSeparator = ({ style, ...props }: ComponentProps<typeof CommandPrimitive.Separator>) => (
@@ -85,7 +92,8 @@ export const CommandSeparator = ({ style, ...props }: ComponentProps<typeof Comm
 /** An option; the selected one (arrow keys or pointer) sits on a wash that is solid behind its label, then dithers out. */
 export function CommandItem({ children, style, ref, ...props }: ComponentProps<typeof CommandPrimitive.Item>) {
   const { bg, fg } = useInk({});
-  const [selected, own] = useDataAttr<HTMLDivElement>("data-selected", ref);
+  const [selected, track] = useDataAttr<HTMLDivElement>("data-selected", ref);
+  const own = useCallback((el: HTMLDivElement | null) => (guardScroll(el), track(el)), [track]);
   const on = selected === "true";
   const [label, wash] = useWash(on);
   return (

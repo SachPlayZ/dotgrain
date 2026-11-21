@@ -33,3 +33,40 @@ html > body[data-scroll-locked] {
     animation: none;
   }
 }
+
+/* Landing motion. Load-in for the hero (CSS, so it runs before hydration) and scroll reveals. */
+@keyframes dg-rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+    filter: blur(6px);
+  }
+}
+.dg-rise {
+  animation: dg-rise 900ms cubic-bezier(0.2, 0.7, 0, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+.dg-reveal {
+  transition-property: opacity, transform, filter;
+  transition-duration: 800ms;
+  transition-timing-function: cubic-bezier(0.2, 0.7, 0, 1);
+  transition-delay: var(--d, 0ms);
+}
+.dg-reveal[data-seen="false"] {
+  opacity: 0;
+  transform: translateY(28px);
+  filter: blur(6px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .dg-rise {
+    animation: none;
+  }
+  .dg-reveal {
+    transition: none;
+  }
+  .dg-reveal[data-seen="false"] {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
